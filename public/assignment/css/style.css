@@ -3,5 +3,41 @@ input.form-control {
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+table {
+    margin-left: 18px;
+}
+
+.white {
+    color: white;
+}
+
+.blue {
+    color: steelblue;
+}
+
+.grey {
+    color: grey;
+}
+
+.listmenu {
+    top: 0;
+    right: 0;
+    z-index: 10;
+    background-color: white;
+}
+
+#list > ul > li {
+    margin: 25px;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
 }
