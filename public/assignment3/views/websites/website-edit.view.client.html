@@ -1,0 +1,81 @@
+<nav class="navbar navbar-fixed-top navbar-light bg-primary">
+    <div class="container-fluid">
+        <div class="block">
+            <div class="col-sm-3 col-md-3 navbar-collapsed">
+                <a class="navbar-brand pull-left white" href="website-list.view.client.html">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <div class="navbar-header">
+                    <span class="navbar-brand white">Websites</span>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-9 navbar-collapsed">
+                <a class="navbar-brand pull-left white" href="#">Edit Websites</a>
+                <a class="navbar-brand pull-right white" href="website-list.view.client.html">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="block">
+        <div class="col-sm-3 col-md-3 hidden-xs">
+            <div id="list">
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="blue">
+                            <a href="website-edit.view.client.html">Blogging App
+                                <span class="glyphicon glyphicon-cog pull-right"></span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="blue">
+                            <a href="website-edit.view.client.html">Address Book App
+                                <span class="glyphicon glyphicon-cog pull-right"></span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="blue">
+                            <a href="website-edit.view.client.html">Script Testing App
+                                <span class="glyphicon glyphicon-cog pull-right"></span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="blue">
+                            <a href="website-edit.view.client.html">Blogger
+                                <span class="glyphicon glyphicon-cog pull-right"></span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9">
+
+            {{model.website}}
+
+            <label for="name">Website Name</label>
+            <input ng-model="model.website.name" type="text" class="form-control" id="name" placeholder="Blogger"/>
+            <div class="form-group">
+                <label for="description">Website Description</label>
+                <textarea class="form-control" rows="5" id="description"
+                          placeholder="Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs, which was bought by Google in 2003. Generally, the blogs are hosted by Google at a subdomain of blogspot.com. Blogs can also be hosted in the registered custom domain of the blogger (like www.example.com).[4] A user can have up to 100 blogs per account."></textarea>
+            </div>
+            <a class="btn btn-danger  btn-block" href="website-list.view.client.html">Delete</a>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand pull-right white" href="../user/profile.view.client.html">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
+    </div>
+</nav>

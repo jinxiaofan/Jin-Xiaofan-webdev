@@ -1,0 +1,91 @@
+<nav class="navbar navbar-fixed-top navbar-default">
+    <div class="container-fluid">
+        <a class="navbar-brand pull-left" href="page-list.html">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="navbar-brand col-m-6 pull-right" href="widget-choose.view.client.html">
+            <span class=" glyphicon glyphicon-plus"></span>
+        </a>
+        <a class="navbar-header">
+            <a class="navbar-brand white" href="#">Widgets</a>
+        </a>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div ng-switch="widget.widgetType"
+         ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.size" ng-switch-when="HEADER">
+            <h1 ng-switch="1">{{widget.text}}</h1>
+            <h2 ng-switch="2">{{widget.text}}</h2>
+            <h3 ng-switch="3">{{widget.text}}</h3>
+            <h4 ng-switch="4">{{widget.text}}</h4>
+            <h5 ng-switch="5">{{widget.text}}</h5>
+            <h6 ng-switch="6">{{widget.text}}</h6>
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <iframe width="560" height="315" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div ng-switch-when="IMAGE">
+            image
+        </div>
+        <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
+            {{widget.text}}
+        </div>
+    </div>
+
+    <div class="list-group relative zero-right-padding">
+        <img class="img-responsive"
+             src="http://fatale.honeyee.com/blog/skajino/upload/DSC_8293.jpg"
+             alt="Sample Image"/>
+        <div class="absolute listmenu zero-right-padding">
+            <a href="#"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <a href="widget-image.view.client.html"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    </div>
+
+
+    <div class="list-group relative zero-right-padding">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/QGj8ro1ttfA" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="absolute listmenu zero-right-padding">
+            <a href="#"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <a href="widget-youtube.view.client.html"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    </div>
+
+    <div class="list-group relative zero-right-padding">
+        <h3 class="blue">Hiroki Nakamura</h3>
+        <div class="absolute listmenu zero-right-padding">
+            <a href="#"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <a href="widget-heading.view.client.html"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    </div>
+
+
+    <div class="list-group relative zero-right-padding">
+        <p>
+            He is the Japanese designer behind Visvim. Two syllables that spell style for purists who see it as a
+            religion more than a brand. The ideal ambassador, good–looking, a doer not a talker, Hiroki Nakamura
+            continues to quietly carve out his own very personal route.
+        </p>
+        <div class="absolute listmenu zero-right-padding">
+            <a href="#"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+            <a href="widget-heading.view.client.html"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand pull-left" href="#">
+            <span class="glyphicon glyphicon-play"></span></a>
+        <a class="navbar-brand pull-left" href="#">
+            <span class="glyphicon glyphicon-eye-open"></span></a>
+        <a class="navbar-brand pull-right" href="../user/profile.view.client.html">
+            <span class="glyphicon glyphicon-user blue"></span></a>
+    </div>
+</nav>

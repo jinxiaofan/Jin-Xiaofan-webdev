@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WebAppMaker">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Web App Maker</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--//using angular cdn-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+
+    <!--my scripts-->
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <!--load all controllers-->
+    <script src="views/user/login.controller.client.js"></script>
+    <script src="views/user/profile.controller.client.js"></script>
+    <script src="views/websites/website-list.controller.client.js"></script>
+    <script src="views/websites/website-edit.controller.client.js"></script>
+    <script src="views/widget/widget-list.controller.client.js"></script>
+    <script src="views/widget/widget-edit.controller.client.js"></script>
+
+    <!--load all services-->
+    <script src="service/user.service.client.js"></script>
+    <script src="service/websites.service.client.js"></script>
+    <script src="service/page.service.client.js"></script>
+    <script src="service/widget.service.client.js"></script>
+
+</head>
+<body>
+
+
+<div class="container-fluid">
+    <div ng-view></div>
+</div>
+
+</body>
+</html>
