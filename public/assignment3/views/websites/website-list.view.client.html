@@ -1,30 +1,30 @@
 <nav class="navbar navbar-fixed-top bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand pull-right white" href="website-new.view.client.html">
-            <span class="glyphicon glyphicon-plus"></span>
-        </a>
-        <a class="navbar-brand pull-left white" href="../user/profile.view.client.html">
+        <a class="navbar-brand glyphiconPositionLeft white-color" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-        <div class="navbar-header">
-            <span class="navbar-brand white">Websites</span>
-        </div>
+        <a class="navbar-brand col-m-6 glyphiconPositionRight white-color"
+           href="#/user/{{model.userId}}/website/new">
+            <span class=" glyphicon glyphicon-plus"></span>
+            <div class="navbar-header">
+                <a class="navbar-brand white-color" href="#/user/{{model.userId}}/website/">Websites</a>
+            </div>
+        </a>
     </div>
 </nav>
 
-<div class="col-sm-4 hidden-xs">
-    {{model.websites}}
 
-    <ul class="list-group">
-        <li ng-repeat="website in model.websites" class="list-group-item">
-            <a href="#">
+<div id="list" class="container-fluid">
+    <ul class="list-unstyled">
+        <li ng-repeat = "website in model.websites">
+            <a href = "#/user/{{model.userId}}/website/{{website._id}}/page " class="blue-color">
                 {{website.name}}
             </a>
-            <a href="#/user/{{model.userId}}/website/{{website._id}}" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
+            <a href="#/user/{{model.userId}}/website/{{website._id}}">
+                <span class="glyphicon glyphicon-cog glyphiconPositionRight"></span>
             </a>
-            <a href="#" class="pull-right">
-                <span class="glyphicon glyphicon-play"></span>
+            <a href="#">
+                <span class="glyphicon glyphicon-play glyphiconPositionRight-leave10"></span>
             </a>
         </li>
     </ul>
@@ -69,7 +69,7 @@
 
 <nav class="navbar navbar-fixed-bottom bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand pull-right" href="../user/profile.view.client.html">
+        <a class="navbar-brand pull-right" href="#/user/{model.userId}}">
             <span class="glyphicon glyphicon-user white"></span>
         </a>
 

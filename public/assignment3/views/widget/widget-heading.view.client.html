@@ -1,31 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wedget</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../../css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
-
 <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
-        <div class="navbar-brand pull-left">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-        </div>
-        <div class="navbar-brand col-m-6 pull-right grey">
-            <a href="widget-list.view.client.html">
-                <span class=" glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
+        <a class="navbar-brand glyphiconPositionLeft"
+           href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="navbar-brand col-m-6 glyphiconPositionRight"
+           href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/">
+            <span class=" glyphicon glyphicon-ok"></span></a>
         <div class="navbar-header">
-            <div class="navbar-brand grey">
-                <a href="#">Wdiget Edit</a>
-            </div>
+            <a class="navbar-brand white-color" href="#">Wdiget Edit</a>
         </div>
     </div>
 </nav>
@@ -58,7 +41,3 @@
         </a>
     </div>
 </nav>
-
-
-</body>
-</html>

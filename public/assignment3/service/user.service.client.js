@@ -22,22 +22,15 @@
         };
         return api;
 
-        function createUser(user, callback){
-            var new_user = {
-              _id: (new Data()).getTime(),
-                username: user.username,
-                password: user.password
-            };
-            services.users.push(new_user);
-            callback(new_user);
-            return new_user;
-        }
 
+        function createUser(user) {
+            users.push(user);
+        }
 
         function findUserById(userId){
             for(var u in users){
                 user = users[u];
-                if(user._id == userId){
+                if(user._id === userId){
                     return user;
                 }
             }
@@ -53,28 +46,25 @@
             }
             return null;
         }
+
+
         function updateUser(userId, user){
-            for (var u in services.users) {
-                if (services.users[u]._id == userId) {
-                    services.users[u].username = user.username;
-                    services.users[u].password = user.password;
-                    services.users[u].firstName = user.firstName;
-                    services.users[u].lastName = user.lastName;
-                    callback(services.users[u]);
-                    return services.users[u];
+            for (var u in users) {
+                var curUser = users[u];
+                if (curUser._id === userId) {
+                    users[u] = user;
                 }
-                else
-                    callback(null);
             }
+
         }
 
-        function deleteUser(userId, callback){
-            for (var u in services.users) {
-                if (services.users[u]._id == userId) {
-                    services.users.splice(u, 1);
+        function deleteUser(userId) {
+            for (var u in users) {
+                user = users[u];
+                if (user._id === userId) {
+                    users.splice(u, 1);
                 }
             }
-            callback(users);
         }
 
     }

@@ -5,6 +5,7 @@
 
     function WidgetEditController($routeParams,
                                   WidgetService, $sce) {
+
         var vm = this;
         var uid = $routeParams.uid;
         var wid = $routeParams.wid;

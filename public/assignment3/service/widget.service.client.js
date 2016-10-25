@@ -17,24 +17,70 @@
         ];
 
         var api = {
-            findWidgetsForPage: findWidgetsForPage,
-            findWidgetById: findWidgetById
+            createWidget: createWidget,
+            findWidgetsByPageId: findWidgetsByPageId,
+            findWidgetById: findWidgetById,
+            updateWidget: updateWidget,
+            deleteWidget: deleteWidget
         };
+
         return api;
-        
-        function findWidgetById(wid) {
-            for (var w in widgets) {
-                if (widgets[w]._id == wid) {
-                    return widgets[w];
+
+        function createWidget(pageId, widget) {
+            var newID = Math.random() * 1000;
+            while (!checkValid(newId)) {
+                newID = Math.random() * 1000;
+            }
+            widget._id = newID;
+            widget.pageId = pageId;
+            widgets.push(widget);
+        }
+
+        function checkValid(newID) {
+            for (var wg in widgets) {
+                if (widgets[wg]._id == newID) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function findWidgetsByPageId(pageId) {
+            var res = [];
+            for (var wg in widgets) {
+                if (widgets[wg].pageId == pageId) {
+                    res.push(widgets[wg]);
+                }
+            }
+            return res;
+        }
+
+        function findWidgetById(widgetId) {
+            for (var wg in widgets) {
+                if (widgets[wg]._id == widgetId) {
+                    return widgets[wg];
                 }
             }
             return null;
         }
 
-        function findWidgetsForPage(pid) {
-            // ToDo: iterate over array looking for widgets for
-            return widgets;
+        function updateWidget(widgetId, widget) {
+            for (var wg in widgets) {
+                curWidget = widgets[wg];
+                if (curWidget._id === widgetId) {
+                    widgets[wg] = widget;
+                }
+            }
         }
 
+        function deleteWidget(userId) {
+            for (var wg in widgets) {
+                curWidget = widgets[wg];
+                if (curWidget._id === widgetId) {
+                    widgets.splice(wg, 1);
+                }
+            }
+        }
     }
+
 })();

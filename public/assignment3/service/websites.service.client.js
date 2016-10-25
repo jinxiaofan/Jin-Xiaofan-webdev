@@ -14,30 +14,54 @@
         ];
 
         var api = {
-            findWebsitesForUser: findWebsitesForUser,
-            findWebsiteById: findWebsiteById
+            createWebsite: createWebsite,
+            findWebsitesByUser: findWebsitesByUser,
+            findWebsiteById: findWebsiteById,
+            updateWebsite: updateWebsite,
+            deleteWebsite: deleteWebsite
         };
         return api;
-        
-        function findWebsiteById(wid) {
-            for (var w in websites) {
-                if (websites[w]._id === wid) {
-                    return websites[w];
-                }
-            }
-            return null;
+
+
+        function createWebsite(website) {
+            websites.push(website);
         }
-        
-        function findWebsitesForUser(uid) {
+
+
+        function findWebsitesByUser(userId) {
             var result = [];
-            for (var w in websites) {
-                if (websites[w].uid === uid) {
-                    result.push(websites[w]);
+            for (var u in websites) {
+                if (websites[u].developerId == userId) {
+                    result.push(websites[u]);
                 }
             }
             return result;
         }
 
+        function findWebsiteById(websiteId) {
+            for (var u in websites) {
+                if (websites[u]._id == websiteId) {
+                    return websites[u];
+                }
+            }
+            return null;
+        }
 
+        function updateWebsite(website) {
+            for (var u in websites) {
+                if (websites[u]._id == website._id) {
+                    websites[u] = website;
+                }
+            }
+        }
+
+
+        function deleteWebsite(websiteId) {
+            for (var u in websites) {
+                if (websites[u]._id == websiteId) {
+                    websites.splice(u, 1);
+                }
+            }
+        }
     }
 })();
