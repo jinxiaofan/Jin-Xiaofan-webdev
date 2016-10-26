@@ -15,28 +15,31 @@
 </nav>
 
 
+
 <div class="container-fluid">
-    <div class="list-group relative-position zero-right-padding">
-        <div ng-switch="widget.widgetType"
-             ng-repeat="widget in model.widgets">
+    <div class="list-group relative RightPadding">
+
+        <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
+
             <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}"
                class="glyphiconPositionRight">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
-            <div ng-switch="widget.size" ng-switch-when="HEADER">
+            <div ng-switch="widget.size"  ng-switch-when="HEADING">
                 <ng-include src="widget-heading.view.client.html"></ng-include>
-                <h1 ng-switch="1">{{widget.text}}</h1>
-                <h2 ng-switch="2">{{widget.text}}</h2>
-                <h3 ng-switch="3">{{widget.text}}</h3>
-                <h4 ng-switch="4">{{widget.text}}</h4>
-                <h5 ng-switch="5">{{widget.text}}</h5>
-                <h6 ng-switch="6">{{widget.text}}</h6>
+                <h1 ng-switch-when="1">{{widget.text}}</h1>
+                <h1 ng-switch-when="2">{{widget.text}}</h1>
+                <h1 ng-switch-when="3">{{widget.text}}</h1>
+                <h1 ng-switch-when="4">{{widget.text}}</h1>
+                <h1 ng-switch-when="5">{{widget.text}}</h1>
+                <h1 ng-switch-when="6">{{widget.text}}</h1>
+            </div>
+            <div ng-switch-when="YOUTUBE" class="embed-responsive embed-responsive-16by9">
+                <ng-include src="widget-youtube.view.client.html"></ng-include>
+                <iframe width="560" height="315" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0"
+                        allowfullscreen ></iframe>
             </div>
 
-            <div ng-switch-when="YOUTUBE">
-                <ng-include src="widget-youtube.view.client.html"></ng-include>
-                <iframe width="560" height="315" ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
-            </div>
             <div ng-switch-when="IMAGE">
                 <ng-include src="widget-image.view.client.html"></ng-include>
                 <img class="img-responsive" ng-src="{{model.checkSafeImageUrl(widget.url)}}" alt="Sample Image"/>
@@ -45,27 +48,22 @@
                 {{widget.text}}
             </div>
         </div>
-
-        <div class="list-group relative zero-right-padding">
-            <img class="img-responsive"
-                 src="http://fatale.honeyee.com/blog/skajino/upload/DSC_8293.jpg"
-                 alt="Sample Image"/>
-            <div class="absolute listmenu zero-right-padding">
-                <a href="#"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
-                <a href="widget-image.view.client.html"><span class="glyphicon glyphicon-cog"></span></a>
-            </div>
-        </div>
     </div>
 </div>
 
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <a class="navbar-brand pull-left" href="#">
-            <span class="glyphicon glyphicon-play"></span></a>
-        <a class="navbar-brand pull-left" href="#">
-            <span class="glyphicon glyphicon-eye-open"></span></a>
-        <a class="navbar-brand pull-right" href="#/user/{{model.uid}}">
-            <span class="glyphicon glyphicon-user blue"></span></a>
+
+        <a class="navbar-brand glyphiconPositionLeft" href="#">
+            <span class="glyphicon glyphicon-play"></span>
+        </a>
+        <a class="navbar-brand glyphiconPositionLeft" href="#">
+            <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
+        <a class="navbar-brand glyphiconPositionRight" href="#/user/{{model.uid}}">
+            <span class="glyphicon glyphicon-user blue"></span>
+        </a>
+
     </div>
 </nav>

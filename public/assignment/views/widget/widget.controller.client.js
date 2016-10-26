@@ -1,52 +1,27 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .controller("WidgetChooseController", WidgetChooseController)
-        .controller("WidgetEditController", WidgetEditController)
-        .controller("WidgetListController", WidgetListController);
+        .controller("WidgetListController", WidgetListController)
+        .controller("WidgetChooserController", WidgetChooserController)
+        .controller("WidgetEditController", WidgetEditController);
 
-    function WidgetChooseController($routeParams, WidgetService) {
+    function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
 
+
+        vm.checkSafeHtml = checkSafeHtml;
+        vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
+        vm.checkSafeImageUrl = checkSafeImageUrl;
         function init() {
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
         }
         init();
-    }
 
-    function WidgetEditController($routeParams,
-                                  WidgetService, $sce) {
 
-        var vm = this;
-        var uid = $routeParams.uid;
-        var wid = $routeParams.wid;
-        var pid = $routeParams.pid;
-        var wgid = $routeParams.wgid;
-
-        function init() {
-            vm.widget = WidgetService.findWidgetById(vm.wgid);
-        }
-        init();
-
-    }
-
-    function WidgetListController($routeParams,
-                                  WidgetService, $sce) {
-        var vm = this;
-        var pid = $routeParams.pid;
-
-        vm.checkSafeImageUrl = checkSafeImageUrl;
-        vm.checkSafeHtml = checkSafeHtml;
-        vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
-
-        function init() {
-            vm.widgets = WidgetService.findWidgetsForPage(pid);
-        }
-        init();
 
         function checkSafeImageUrl(url) {
             return $sce.trustAsHtml(url);
@@ -64,4 +39,53 @@
         }
     }
 
+
+    function WidgetChooserController($routeParams, WidgetService, $location) {
+        var vm = this;
+        vm.uid = $routeParams.uid;
+        vm.wid = $routeParams.wid;
+        vm.pid = $routeParams.pid;
+        vm.wgid = $routeParams.wgid;
+        vm.tmp =  {"_id": null, "widgetType": null, "pageId": null, "size": null, "text": null};
+        vm.createWidget = createWidget;
+
+        function createWidget(widgetType) {
+            widget = vm.tmp;
+            widget.widgetType = widgetType;
+            widget._id = (new Date()).getTime();
+            widget.pageId = vm.pid;
+            WidgetService.createWidget(widget);
+            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widget._id);
+        }
+    }
+
+    function WidgetEditController($routeParams, WidgetService, $location) {
+
+        var vm = this;
+        vm.uid = $routeParams.uid;
+        vm.wid = $routeParams.wid;
+        vm.pid = $routeParams.pid;
+        vm.wgid = $routeParams.wgid;
+
+        vm.updateWidget = updateWidget;
+        vm.deleteWidget = deleteWidget;
+        function init() {
+            vm.widget = WidgetService.findWidgetById(vm.wgid);
+            vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+        }
+        init();
+
+
+        function updateWidget(widget) {
+            WidgetService.updateWidget(widget);
+            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/");
+        }
+
+
+        function deleteWidget(wgid) {
+            WidgetService.deleteWidget(wgid);
+            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/");
+        }
+
+    }
 })();

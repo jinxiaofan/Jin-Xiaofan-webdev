@@ -40,25 +40,31 @@ table {
     display: none;
 }
 
-.relative-position {
+
+.relative {
     position: relative;
 }
-.absolute-position {
+
+
+.absolute {
     position: absolute;
 }
-.list-element-menu {
+
+.elementMenu {
     top: 0;
     right: 0;
     z-index: 10;
     background-color: white;
 }
-.zero-right-padding {
+
+
+.RightPadding {
     padding-right: 0;
 }
 
 
 #list > ul > li {
-    margin: 20px;
+    margin: 18px;
 }
 
 .left-colon > li {

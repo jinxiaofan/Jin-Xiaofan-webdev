@@ -15,8 +15,8 @@
 
 <div id="list" class="container-fluid">
     <ul class="list-unstyled">
-        <li>
-            <a href="widget-heading.view.client.html" class="blue">Header</a>
+        <li class="blue">
+            <a ng-click="model.createWidget('HEADING')">Header</a>
         </li>
         <li>
             <a class="blue">Label</a>
@@ -34,10 +34,10 @@
             <a class="blue">Button</a>
         </li>
         <li>
-            <a href="widget-image.view.client.html" class="blue">Image</a>
+            <a ng-click="model.createWidget('IMAGE')"class="blue">Image</a>
         </li>
         <li>
-            <a href="widget-youtube.view.client.html" class="blue">YouTube</a>
+            <a ng-click="model.createWidget('YOUTUBE')" class="blue">YouTube</a>
         </li>
         <li>
             <a class="blue">Date Table</a>
@@ -51,7 +51,7 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
-        <a class="navbar-brand pull-right" href="#/user/{{model.uid}}">
+        <a class="navbar-brand glyphiconPositionRight" href="#/user/{{model.uid}}">
             <span class="glyphicon glyphicon-user blue"></span>
         </a>
     </div>

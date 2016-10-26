@@ -5,6 +5,7 @@
         .controller("PageListController", PageListController)
         .controller("PageNewController", PageNewController);
 
+
     function PageEditController($routeParams, PageService, $location) {
 
         var vm = this;
@@ -24,10 +25,12 @@
         }
         init();
 
+
         function updatePage(page) {
             PageService.updatePage(page);
             $location.url("/user/" + userId + "/website/" + websiteId + "/page");
         }
+
 
         function deletePage(pid) {
             PageService.deletePage(pid);
@@ -35,11 +38,10 @@
         }
     }
 
+
     function PageListController($routeParams, PageService) {
         var vm = this;
-
         vm.userId = parseInt($routeParams.uid);
-
         vm.websiteId = parseInt($routeParams.wid);
 
 
@@ -53,16 +55,14 @@
         var vm = this;
         var userId = parseInt($routeParams.uid);
         var websiteId = parseInt($routeParams.wid);
-
         vm.userId = userId;
         vm.websiteId = websiteId;
         vm.createPage = createPage;
-
-
         function init() {
             vm.pages = PageService.findPagesByWebsiteId(websiteId);
         }
         init();
+
 
         function createPage(page) {
             page._id = (new Date()).getTime();
@@ -71,5 +71,4 @@
             $location.url("/user/" + userId + "/website/" + websiteId + "/page");
         }
     }
-
 })();

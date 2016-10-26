@@ -1,29 +1,25 @@
 <nav class="navbar navbar-fixed-top navbar-light bg-primary">
     <div class="container-fluid">
-        <div class="block">
+        <div class="row">
             <div class="col-sm-3 col-md-3 navbar-collapsed">
                 <a class="navbar-brand glyphiconPositionLeft white"
                    href="#/user/{{model.userId}}/website/">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="navbar-brand white hidden-xs"
-                   href="#">Websites
-                </a>
+                <a class="navbar-brand white hidden-xs" href="#">Websites</a>
                 <a class="navbar-brand hidden-xs glyphiconPositionRight white " href="#">
                     <span class=" glyphicon glyphicon-plus"></span>
                 </a>
             </div>
             <div class="col-sm-9 col-md-9 navbar-collapsed">
                 <a class="navbar-brand glyphiconPositionLeft white">New Websites</a>
-                <a class="navbar-brand glyphiconPositionRight white"
-                   ng-click ="model.createWebsite(website)">
+                <a class="navbar-brand glyphiconPositionRight white" ng-click ="model.createWebsite(website)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
         </div>
     </div>
 </nav>
-
 
 
 <div class="container-fluid">
@@ -34,6 +30,7 @@
                     <a href="#/user/{{model.userId}}/website/{{website._id}}/page " class="blue">
                         {{website.name}}
                     </a>
+
                     <a href="#/user/{{model.userId}}/website/{{website._id}}">
                         <span class="glyphicon glyphicon-cog glyphiconPositionRight"></span>
                     </a>
@@ -43,6 +40,7 @@
                 </li>
             </ul>
         </div>
+
         <div class="col-sm-9 col-md-9">
             <label for="name">Name</label>
             <input ng-model="website.name"
@@ -61,8 +59,12 @@
 </div>
 
 
+
 <nav class="navbar navbar-fixed-bottom bg-primary">
-    <div class="container">
-        <a class="navbar-brand pull-right white" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user"></span></a>
+    <div class="container-fluid">
+        <a class="navbar-brand glyphiconPositionRight white" href="#/user/{{model.userId}}">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
     </div>
 </nav>
+

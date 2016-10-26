@@ -3,45 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Web App Maker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!--//using angular cdn-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
 
     <!--my scripts-->
     <script src="app.js"></script>
     <script src="config.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--load all services-->
+    <script src = "services/user.service.client.js"></script>
+    <script src = "services/websites.service.client.js"></script>
+    <script src = "services/widget.service.client.js"></script>
+    <script src = "services/page.service.client.js"></script>
 
     <!--load all controllers-->
-    <script src="views/user/user.controller.client.js"></script>
-    <script src="views/page/page.controller.client.js"></script>
-    <script src="views/websites/website.controller.client.js"></script>
-    <script src="views/widget/widget.controller.client.js"></script>
+    <script src = "views/website/website.controller.client.js"></script>
+    <script src = "views/user/user.controller.client.js"></script>
+    <script src = "views/widget/widget.controller.client.js"></script>
+    <script src = "views/page/page.controller.client.js"></script>
 
-    <!--load all services-->
-    <script src="service/user.service.client.js"></script>
-    <script src="service/websites.service.client.js"></script>
-    <script src="service/page.service.client.js"></script>
-    <script src="service/widget.service.client.js"></script>
 
 </head>
 <body>
-
-
-<div class="container-fluid">
-    <div ng-view></div>
+<div ng-view>
     <a href="#/login">Login</a>
     <a href="#/register">Register</a>
 </div>
-
 </body>
 </html>
