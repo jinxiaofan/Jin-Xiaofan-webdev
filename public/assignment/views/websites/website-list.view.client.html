@@ -1,13 +1,13 @@
 <nav class="navbar navbar-fixed-top bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand glyphiconPositionLeft white-color" href="#/user/{{model.userId}}">
+        <a class="navbar-brand glyphiconPositionLeft white" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-        <a class="navbar-brand col-m-6 glyphiconPositionRight white-color"
+        <a class="navbar-brand col-m-6 glyphiconPositionRight white"
            href="#/user/{{model.userId}}/website/new">
             <span class=" glyphicon glyphicon-plus"></span>
             <div class="navbar-header">
-                <a class="navbar-brand white-color" href="#/user/{{model.userId}}/website/">
+                <a class="navbar-brand white" href="#/user/{{model.userId}}/website/">
                     Websites</a>
             </div>
         </a>
@@ -18,7 +18,7 @@
 <div id="list" class="container-fluid">
     <ul class="list-unstyled">
         <li ng-repeat = "website in model.websites">
-            <a href = "#/user/{{model.userId}}/website/{{website._id}}/page " class="blue-color">
+            <a href = "#/user/{{model.userId}}/website/{{website._id}}/page " class="blue">
                 {{website.name}}
             </a>
             <a href="#/user/{{model.userId}}/website/{{website._id}}">

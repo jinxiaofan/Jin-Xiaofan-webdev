@@ -2,15 +2,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-3 navbar-collapsed">
-                <a class="navbar-brand glyphiconPositionLeft white-color"
+                <a class="navbar-brand glyphiconPositionLeft white"
                    href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="navbar-brand white-color hidden-xs">Pages</a>
+                <a class="navbar-brand white hidden-xs">Pages</a>
             </div>
             <div class="col-sm-9 col-md-9 navbar-collapsed">
-                <a class="navbar-brand white-color glyphiconPositionLeft white-color">Edit Page</a>
-                <a class="navbar-brand glyphiconPositionRight white-color"
+                <a class="navbar-brand white glyphiconPositionLeft white">Edit Page</a>
+                <a class="navbar-brand glyphiconPositionRight white"
                    ng-click="model.updatePage(model.page)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
@@ -26,7 +26,7 @@
             <ul class="list-unstyled left-colon">
                 <li ng-repeat="page in model.pages">
                     <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget"
-                       class="gray-color">
+                       class="gray">
                         {{page.name}}
                     </a>
                     <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/">

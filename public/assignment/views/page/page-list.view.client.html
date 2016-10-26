@@ -7,7 +7,7 @@
            href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
             <span class=" glyphicon glyphicon-plus"></span>
             <div class="navbar-header">
-                <a class="navbar-brand white-color">Pages</a>
+                <a class="navbar-brand white">Pages</a>
             </div>
         </a>
     </div>
@@ -17,7 +17,7 @@
     <ul class="list-unstyled">
         <li ng-repeat = "page in model.pages">
 
-            <a href = "#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget " class="blue-color">
+            <a href = "#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget " class="blue">
                 {{page.name}}
             </a>
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/">

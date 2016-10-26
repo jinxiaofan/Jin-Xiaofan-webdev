@@ -8,7 +8,20 @@ body {
 }
 
 table {
-    margin-left: 18px;
+    margin-left: 20px;
+}
+
+.glyphiconPositionRight {
+    float: right;
+}
+
+.glyphiconPositionRight-leave10 {
+    padding-right: 10px;
+    float: right;
+}
+
+.glyphiconPositionLeft {
+    float: left;
 }
 
 .white {
@@ -19,25 +32,35 @@ table {
     color: steelblue;
 }
 
-.grey {
-    color: grey;
+.gray {
+    color: gray;
 }
 
-.listmenu {
+.sideHide {
+    display: none;
+}
+
+.relative-position {
+    position: relative;
+}
+.absolute-position {
+    position: absolute;
+}
+.list-element-menu {
     top: 0;
     right: 0;
     z-index: 10;
     background-color: white;
 }
+.zero-right-padding {
+    padding-right: 0;
+}
+
 
 #list > ul > li {
-    margin: 25px;
+    margin: 20px;
 }
 
-.relative {
-    position: relative;
-}
-
-.absolute {
-    position: absolute;
+.left-colon > li {
+    margin: 15px;
 }
