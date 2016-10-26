@@ -40,18 +40,16 @@
             </div>
         </div>
         <div class="col-sm-9 col-md-9">
-            <label for="name">Website Name</label>
+            <label for="name">Name</label>
             <input ng-model="model.website.name" type="text" class="form-control" id="name" placeholder="Blogger"/>
             <div class="form-group">
-                <label for="description">Website Description</label>
+                <label for="description">Description</label>
                 <textarea ng-model="model.website.description" class="form-control" rows="5" id="description"
                           placeholder="Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs, which was bought by Google in 2003. Generally, the blogs are hosted by Google at a subdomain of blogspot.com. Blogs can also be hosted in the registered custom domain of the blogger (like www.example.com).[4] A user can have up to 100 blogs per account."></textarea>
             </div>
-            <a ng-click="model.updateWebsite(model.website)"
-               class="btn btn-primary  btn-block">Update</a>
-
             <a ng-click="model.deleteWebsite(model.website._id)"
-               class="btn btn-danger  btn-block">Delete</a>
+               class="btn btn-danger  btn-block">Delete
+            </a>
         </div>
     </div>
 </div>
@@ -59,7 +57,7 @@
 
 <nav class="navbar navbar-fixed-bottom bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand pull-right white" href="../user/profile.view.client.html">
+        <a class="navbar-brand pull-right white" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>
