@@ -69,6 +69,7 @@
 
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+
         function init() {
             vm.widget = WidgetService.findWidgetById(vm.wgid);
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
