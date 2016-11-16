@@ -7,7 +7,7 @@
 
         <a class="navbar-brand white glyphiconPositionLeft white" href="#">Edit Widget</a>
         <a class="navbar-brand glyphiconPositionRight white"
-           ng-click="model.updateWidget(model.widget)">
+           ng-click="model.updateTheWidget(model.widget)">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
@@ -16,9 +16,11 @@
 
 
 <div class="container-fluid">
-    <form>
-        <div ng-include="'views/widget/widget-'+ model.widget.widgetType.toLowerCase() + '.view.client.html'"></div>
-    </form>
+    <div ng-if = "model.widget.widgetType">
+        <form>
+            <div ng-include="'views/widget/widget-'+ model.widget.widgetType.toLowerCase() + '.view.client.html'"></div>
+        </form>
+    </div>
 </div>
 
 

@@ -4,7 +4,7 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input ng-model = "model.widget.widgetType"
+            <input ng-model = "model.widget.name"
                    type="text"
                    class="form-control"
                    id="name"
@@ -12,7 +12,8 @@
         </div>
         <div class="form-group">
             <label for="title">Text</label>
-            <input type="email"
+            <input ng-model="model.widget.text"
+                   type="text"
                    class="form-control"
                    id="title"
                    placeholder="">
@@ -20,7 +21,7 @@
         <div class="form-group">
             <label for="url">URL</label>
             <input ng-model = "model.widget.url"
-                   type="text"
+                   type="url"
                    class="form-control"
                    id="url"
                    placeholder="https://youtube.be/uLWLashCXHE">
@@ -34,6 +35,6 @@
                    placeholder="">
         </div>
         <a class="btn btn-danger  btn-block"
-           ng-click = "model.deleteWidget(model.widget._id)">Delete</a>
+           ng-click = "model.deleteTheWidget()">Delete</a>
     </form>
 </div>

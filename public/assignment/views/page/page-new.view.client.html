@@ -15,7 +15,7 @@
             <div class="col-sm-9 col-md-9 navbar-collapsed">
                 <a class="navbar-brand glyphiconPositionLeft white">New Page</a>
 
-                <a class="navbar-brand glyphiconPositionRight white" ng-click ="model.createPage(page)">
+                <a class="navbar-brand glyphiconPositionRight white" ng-click ="model.createPage()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
 
@@ -46,14 +46,17 @@
             </ul>
         </div>
         <div class="col-sm-9 col-md-9">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input ng-model="page.name" type="text" class="form-control" id="name"
-                       placeholder="Page Name">
-                <label for="title">Title</label>
-                <input ng-model="page.title" type="email" class="form-control" id="title"
-                       placeholder="Page Title">
-            </div>
+            <form id="new-page-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input ng-model="model.page.name" type="text" class="form-control" id="name"
+                           placeholder="Page Name">
+                    <label for="title">Title</label>
+                    <input ng-model="model.page.title" type="email" class="form-control" id="title"
+                           placeholder="Page Title">
+                </div>
+                <a ng-click="model.createPage(model.page)" class="btn btn-success  btn-block">Submit</a>
+            </form>
         </div>
     </div>
 </div>

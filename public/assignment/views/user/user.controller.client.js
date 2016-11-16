@@ -10,47 +10,58 @@
         vm.login = login;
 
         function login(user) {
-            if (vm.user == null) {
-                vm.error = "No such user"
-            }
-            else {
-                var user = UserService.findUserByCredentials(vm.user.username, vm.user.password);
-                if (user === null) {
-                    vm.error = "No such user"
-                }
-                else {
+            UserService.findUserByCredentials(username, password).success(function(user){
+                if (user != '0'){
                     $location.url("/user/" + user._id);
+                } else {
+                    vm.error = "Cannot login";
                 }
-            }
+            })
         }
     }
 
 
     function RegisterController(UserService, $location) {
         var vm = this;
-        vm.createUser = createUser;
-        function createUser(user) {
-            if (user.password != user.password2) {
-                vm.error = "Different Passwords typed in"
+        vm.register = register;
+        function register(username, password, varyPassword){
+            if (password != varyPassword){
+                vm.error = "Different Passwords typed in";
             }
             else {
-                user._id = (new Date()).getTime();
-                UserService.createUser(user);
-                $location.url("/user/" + user._id);
+                UserService
+                    .createUser(username,password)
+                    .success(function(user){
+                        $location.url("/user/" + user._id);
+                    })
             }
         }
     }
 
 
     function ProfileController($routeParams, UserService) {
-
         var vm = this;
+        var userId = parseInt($routeParams['uid']);
 
-        vm.userId = parseInt($routeParams.uid);
+        vm.updateProfile = updateProfile;
+
         function init() {
-            vm.user = UserService.findUserById(vm.userId);
+            var promise = UserService.findUserById(userId);
+            promise.success(function (user) {
+                if (user != '0') {
+                    vm.user = user;
+                }
+            })
         }
         init();
-    }
 
+
+        function updateProfile() {
+            UserService.updateUser(userId, vm.user).success(function (user) {
+                if (user != '0') {
+                    vm.user = user;
+                }
+            })
+        }
+    }
 })();

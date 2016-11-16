@@ -11,7 +11,6 @@ module.exports = function (app) {
 
 
     app.post('/api/page/:pid/widget', createWidget);
-    //TODO app.post("/api/upload", upload.single('localFile'), uploadImage);
     app.get('/api/page/:pid/widget', findWidgetsByPageId);
     app.get('/api/widget/:wgid', findWidgetById);
     app.put('/api/widget/:wgid', updateWidget);
@@ -58,32 +57,6 @@ module.exports = function (app) {
         }
         res.sendStatus(200);
     }
-
-    function uploadImage(req, res) {
-        var wgid = req.body.wgid;
-        var uid = req.body.uid;
-        var wid = req.body.wid;
-        var pid = req.body.pid;
-        var localFile = req.file;
-
-        var originalname = localFile.originalname;
-        var filename = localFile.filename;
-        var path = localFile.path;
-        var destination = localFile.destination;
-        var size = localFile.size;
-
-        for (var w in widgets) {
-            if (widgets[w]._id === wgid) {
-                widgets[w].url = '/assignment/uploads/'+filename;
-                widgets[w].text = req.body.text;
-                widgets[w].width = req.body.width;
-                break;
-            }
-        }
-        var url = '/assignment/index.html#/user/' + uid + '/website/' + wid + '/page/' + pid + '/widget/';
-        res.redirect(url);
-    }
-
 
     function sortWidget(req, res) {
         var pageId = req.params.pid;

@@ -11,7 +11,7 @@
             <div class="col-sm-9 col-md-9 navbar-collapsed">
                 <a class="navbar-brand white glyphiconPositionLeft white">Edit Page</a>
                 <a class="navbar-brand glyphiconPositionRight white"
-                   ng-click="model.updatePage(model.page)">
+                   ng-click="model.updatePage()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -56,7 +56,7 @@
                        id="title"
                        placeholder="Page Title">
             </div>
-            <a class="btn btn-danger  btn-block" ng-click = "model.deletePage(model.page._id)">Delete</a>
+            <a class="btn btn-danger  btn-block" ng-click = "model.deletePage()">Delete</a>
         </div>
     </div>
 </div>
