@@ -9,28 +9,33 @@ module.exports = function (app) {
         {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
     ];
 
+
     app.post('/api/page/:pid/widget', createWidget);
+    //TODO app.post("/api/upload", upload.single('localFile'), uploadImage);
     app.get('/api/page/:pid/widget', findWidgetsByPageId);
     app.get('/api/widget/:wgid', findWidgetById);
     app.put('/api/widget/:wgid', updateWidget);
+    app.put('/api/page/:pid/widget', sortWidget);
     app.delete('/api/widget/:wgid', deleteWidget);
+
 
     function createWidget(req, res) {
         var widget = req.body;
         widgets.push(widget);
-        res.send(200);
+        res.sendStatus(200);
     }
 
     function findWidgetsByPageId(req, res) {
-        var result = [];
+        var allWidgets = [];
         var pid = req.params.pid;
         for(var wg in widgets){
             if(widgets[wg].pageId === pid){
-                result.push(widgets[wg])
+                allWidgets.push(widgets[wg])
             }
         }
-        res.json(result);
+        res.json(allWidgets);
     }
+
 
     function findWidgetById(req, res) {
         var wgid = req.params.wgid;
@@ -51,7 +56,41 @@ module.exports = function (app) {
                 break;
             }
         }
-        res.send(200);
+        res.sendStatus(200);
+    }
+
+    function uploadImage(req, res) {
+        var wgid = req.body.wgid;
+        var uid = req.body.uid;
+        var wid = req.body.wid;
+        var pid = req.body.pid;
+        var localFile = req.file;
+
+        var originalname = localFile.originalname;
+        var filename = localFile.filename;
+        var path = localFile.path;
+        var destination = localFile.destination;
+        var size = localFile.size;
+
+        for (var w in widgets) {
+            if (widgets[w]._id === wgid) {
+                widgets[w].url = '/assignment/uploads/'+filename;
+                widgets[w].text = req.body.text;
+                widgets[w].width = req.body.width;
+                break;
+            }
+        }
+        var url = '/assignment/index.html#/user/' + uid + '/website/' + wid + '/page/' + pid + '/widget/';
+        res.redirect(url);
+    }
+
+
+    function sortWidget(req, res) {
+        var pageId = req.params.pid;
+        var start = req.query.start;
+        var end = req.query.end;
+        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        res.sendStatus(200);
     }
 
 
@@ -63,8 +102,6 @@ module.exports = function (app) {
                 widgets.splice(wg, 1);
             }
         }
-        res.send(200);
+        res.sendStatus(200);
     }
-
-
 };

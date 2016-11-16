@@ -5,11 +5,15 @@ module.exports = function (app) {
         { _id: 432, name: "Post 2", websiteId: 456 },
         { _id: 543, name: "Post 3", websiteId: 456 }
     ];
+
+
     app.post('/api/website/:websiteId/page', createPage);
-    app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
     app.get('/api/page/:pageId', findPageById);
+    app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
     app.put('/api/page/:pageId', updatePage);
     app.delete('/api/page/:pageId', deletePage);
+
+
 
     function createPage(req, res) {
         var websiteId = parseInt(req.params.websiteId);
@@ -17,8 +21,21 @@ module.exports = function (app) {
         page._id = (new Date()).getTime();
         page.websiteId = websiteId;
         pages.push(page);
-        res.send(page);
+        res.sendStatus(200);
     }
+
+
+    function findPageById(req, res) {
+        var pageId = parseInt(req.params.pageId);
+        for (var p in pages) {
+            if (pages[p]._id === pageId) {
+                res.json(pages[p]);
+            }
+        }
+        return '0';
+    }
+
+
     function findAllPagesForWebsite(req, res) {
         var websiteId = parseInt(req.params.websiteId);
         var websitePages = [];
@@ -27,29 +44,20 @@ module.exports = function (app) {
                 websitePages.push(pages[p]);
             }
         }
-        res.send(websitePages);
+        res.json(websitePages);
     }
-    function findPageById(req, res) {
-        var pageId = parseInt(req.params.pageId);
-        for (var p in pages) {
-            if (pages[p]._id === pageId) {
-                res.send(pages[p]);
-                return;
-            }
-        }
-        return '0';
-    }
-    
+
+
     function updatePage(req, res) {
         var pageId = parseInt(req.params.pageId);
+        var page = req.body;
         for (var p in pages) {
             if (pages[p]._id === pageId) {
                 pages[p] = page;
-                res.send(pages[p]);
-                return;
+                break;
             }
         }
-        return '0';
+        res.sendStatus(200);
     }
 
     function deletePage(req, res) {
@@ -57,10 +65,8 @@ module.exports = function (app) {
         for (var p in pages) {
             if (pages[p]._id === pageId) {
                 pages.splice(p, 1);
-                res.send(200);
-                return;
             }
         }
-        return '0';
+        res.sendStatus(200);
     }
 };

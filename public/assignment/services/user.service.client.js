@@ -24,13 +24,14 @@
         }
 
         function findUserByUsername(username) {
+            var allUsers = [];
             for (var u in users) {
                 user = users[u];
                 if (user.username === username) {
-                    return user;
+                    allUsers.push(user);
                 }
             }
-            return null;
+            return allUsers;
         }
 
 

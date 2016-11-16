@@ -6,37 +6,42 @@ module.exports = function (app) {
         {_id: 456, username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi", email: "jannunzi@gmail.com"}
     ];
 
+
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
     app.get('/api/user/:userId', findUserById);
     app.put('/api/user/:userId', updateUser);
     app.delete('/api/user/:userId', deleteUser);
 
+
     function createUser(req, res) {
         var user = req.body;
         user._id = (new Date()).getTime();
         users.push(user);
-        res.send(user);
+        res.sendStatus(200);
     }
+
+
     function findUser(req, res) {
         var query = req.query;
-        if (query.password && query.username) {
+        if (query.username == true && query.password == true) {
             findUserByCredentials(req, res);
-        } else if (query.username) {
+        } else if (query.username == true) {
             findUserByUsername(req, res);
         }
     }
+
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
         for (var i in users) {
             if (users[i].username === username) {
-                res.send(users[i]);
-                return;
+                res.json(users[i]);
             }
         }
-        res.send('0');
+        return '0';
     }
+
 
     function findUserByCredentials(req, res) {
         var query = req.query;
@@ -44,23 +49,23 @@ module.exports = function (app) {
         var password = query.password;
         for (var i in users) {
             if (users[i].username === username && users[i].password === password) {
-                res.send(users[i]);
-                return;
+                res.json(users[i]);
             }
         }
-        res.send('0');
+        return '0';
     }
+
 
     function findUserById(req, res) {
         var userId = parseInt(req.params.userId);
         for (var u in users) {
             if (users[u]._id === userId) {
-                res.send(users[u]);
-                return;
+                res.json(users[u]);
             }
         }
-        res.send('0');
+        return '0';
     }
+
 
     function updateUser(req, res) {
         var userId = parseInt(req.params.userId);
@@ -68,22 +73,20 @@ module.exports = function (app) {
         for (var u = 0; u < users.length; u++) {
             if (users[u]._id === userId) {
                 users[u] = user;
-                res.send(users[u]);
-                return;
+                break;
             }
         }
-        res.send('0');
+        res.sendStatus(200);
     }
+
 
     function deleteUser(req, res) {
         var userId = parseInt(req.params.userId);
         for (var u = 0; u < users.length; u++) {
             if (users[u]._id == userId) {
                 users.slice(u, 1);
-                res.send(200);
             }
         }
-        res.send('0');
+        res.sendStatus(200);
     }
-
 };
