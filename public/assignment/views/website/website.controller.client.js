@@ -15,30 +15,28 @@
         vm.deleteWebsite = deleteWebsite;
 
         function init() {
-            WebsiteService.findWebsiteById(vm.websiteId).success(function (website) {
-                if (website != '0') {
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function(websites){
+                    vm.websites = websites;
+                })
+
+            WebsiteService.findWebsiteById(vm.wid)
+                .success(function(website){
                     vm.website = website;
-                }
-            });
-            WebsiteService.findWebsitesByUser(vm.userId).success(function (websites) {
-                vm.websites = websites;
-            });
+                })
         }
         init();
 
-        function updateWebsite(website) {
-            WebsiteService.updateWebsite(vm.websiteId, website).success(function (website) {
-                if (website != '0') {
-                    $location.url("/user/" + vm.userId + "/website");
-                }
-            });
+        function updateWebsite() {
+            WebsiteService.updateWebsite(vm.wid , vm.website).success(function(){
+                $location.url("/user/" + vm.userId  + "/website");
+            })
         }
 
         function deleteWebsite() {
-            WebsiteService.deleteWebsite(vm.websiteId).success(function (res) {
-                console.log(res);
-                $location.url("/user/" + vm.userId + "/website");
-            });
+            WebsiteService.deleteWebsite(vm.website._id).success(function(){
+                $location.url("/user/" + vm.userId  + "/website");
+            })
         }
     }
 
@@ -67,9 +65,10 @@
         init();
 
 
-        function createWebsite(website) {
-            WebsiteService.createWebsite(vm.userId, vm.website).success(function (website) {
-                $location.url("/user/" + vm.userId + "/website");
+        function createWebsite(newWebSite) {
+            newWebSite.developerId = vm.userId;
+            WebsiteService.createWebsite(newWebSite._id, newWebSite).success(function(){
+                $location.url("/user/" +  newWebSite.developerId  + "/website");
             });
         }
     }
