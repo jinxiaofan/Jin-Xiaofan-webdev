@@ -28,7 +28,7 @@
         init();
 
         function updateWebsite() {
-            WebsiteService.updateWebsite(vm.wid , vm.website).success(function(){
+            WebsiteService.updateWebsite(vm.websiteId , vm.website).success(function(){
                 $location.url("/user/" + vm.userId  + "/website");
             })
         }
