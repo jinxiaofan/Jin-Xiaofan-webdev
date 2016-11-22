@@ -1,4 +1,5 @@
 module.exports = function (app) {
+    console.log("hello from user service server");
     var users = [
         {_id: 123, username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder", email: "alice@gmail.com"},
         {_id: 234, username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley",  email: "bob@gmail.com"},
@@ -18,15 +19,15 @@ module.exports = function (app) {
         var user = req.body;
         user._id = (new Date()).getTime();
         users.push(user);
-        res.sendStatus(200);
+        res.send(user);
     }
 
 
     function findUser(req, res) {
         var query = req.query;
-        if (query.username == true && query.password == true) {
+        if (query.username && query.password) {
             findUserByCredentials(req, res);
-        } else if (query.username == true) {
+        } else if (query.username) {
             findUserByUsername(req, res);
         }
     }
@@ -34,25 +35,30 @@ module.exports = function (app) {
 
     function findUserByUsername(req, res) {
         var username = req.query.username;
-        for (var i in users) {
-            if (users[i].username === username) {
-                res.json(users[i]);
+        for (var u in users) {
+            if (users[u].username === username) {
+                //res.json(users[u]);
+                res.send(users[u]);
+                return;
             }
         }
-        return '0';
+        //return '0';
+        res.send('0');
     }
 
 
     function findUserByCredentials(req, res) {
-        var query = req.query;
-        var username = query.username;
-        var password = query.password;
-        for (var i in users) {
-            if (users[i].username === username && users[i].password === password) {
-                res.json(users[i]);
+        var username = req.query.username;
+        var password = req.query.password;
+        for (var u in users) {
+            if (users[u].username === username && users[u].password === password) {
+                //res.json(users[u]);
+                res.send(users[u]);
+                return;
             }
         }
-        return '0';
+        //return '0';
+        res.send('0');
     }
 
 
@@ -60,10 +66,13 @@ module.exports = function (app) {
         var userId = parseInt(req.params.userId);
         for (var u in users) {
             if (users[u]._id === userId) {
-                res.json(users[u]);
+                //res.json(users[u]);
+                res.send(users[u]);
+                return;
             }
         }
-        return '0';
+        //return '0';
+        res.send('0');
     }
 
 
