@@ -34,7 +34,7 @@ module.exports = function (app) {
                 result.push(websites[w]);
             }
         }
-        res.json(userWebsites);
+        res.json(result);
         //res.send(result);
     }
 

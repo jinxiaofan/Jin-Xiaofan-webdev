@@ -67,13 +67,14 @@
         init();
     }
 
-    function WebsiteNewController($routeParams, WebsiteService, $location) {
+    function WebsiteNewController($location, $routeParams, WebsiteService) {
         var vm = this;
-        vm.userId = parseInt($routeParams.uid);
+        var userId = parseInt($routeParams.uid);
         vm.createWebsite = createWebsite;
 
         function init() {
-            WebsiteService.findWebsitesByUser(vm.userId)
+            var promise = WebsiteService.findWebsitesByUser(userId);
+            promise
                 .success(function (websites) {
                 vm.websites = websites;
             })
