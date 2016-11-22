@@ -14,6 +14,17 @@
         };
         return api;
 
+        function updateUser(user) {
+            var url = "/api/user/" + user._id;
+            return $http.put(url, user);
+        }
+
+
+        function unregisterUser(userId) {
+            var url = "/api/user/" + userId;
+            return $http.delete(url);
+        }
+
 
         function createUser(username, password) {
             var user = {
@@ -38,16 +49,6 @@
         function findUserByCredentials(username, password) {
             var url = '/api/user?username='+username+'&password='+password;
             return $http.get(url);
-        }
-
-        function updateUser(user) {
-            var url = "/api/user/" + user._id;
-            return $http.put(url, user);
-        }
-
-        function unregisterUser(userId) {
-            var url = "/api/user/" + userId;
-            return $http.delete(url);
         }
     }
 })();
