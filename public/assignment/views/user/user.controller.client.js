@@ -25,7 +25,7 @@
         var vm = this;
         vm.register = register;
         function register(username, password, varyPassword){
-            UserService.findUserByUserName(username)
+            UserService.findUserByUsername(username)
                 .success(function (user) {
                     if (user == 0) {
                         if (password === varyPassword){
