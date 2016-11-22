@@ -27,14 +27,15 @@ module.exports = function (app) {
 
 
     function findAllWebsitesForUser(req, res) {
-        var userId = parseInt(req.params.userId);
-        var userWebsites = [];
+        var userId = req.params.userId;
+        var result = [];
         for (var w in websites) {
-            if (websites[w].developerId === userId) {
-                userWebsites.push(websites[w]);
+            if (websites[w].developerId == userId) {
+                result.push(websites[w]);
             }
         }
         res.json(userWebsites);
+        //res.send(result);
     }
 
     function findWebsiteById(req, res) {
