@@ -10,7 +10,7 @@
             findUserByCredentials: findUserByCredentials,
             findUserByUsername: findUserByUsername,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            unregisterUser: unregisterUser
         };
         return api;
 
@@ -45,7 +45,7 @@
             return $http.put(url, user);
         }
 
-        function deleteUser(userId) {
+        function unregisterUser(userId) {
             var url = "/api/user/" + userId;
             return $http.delete(url);
         }

@@ -58,7 +58,7 @@
         var userId = parseInt($routeParams['uid']);
 
         vm.updateUser = updateUser;
-        vm.deleteUser = deleteUser;
+        vm.unregisterUser = unregisterUser;
 
 
         function init() {
@@ -77,13 +77,14 @@
 
 
         function updateUser() {
+            console.log(vm.user);
             UserService.updateUser(vm.user).success(function (user) {
                 $location.url("/login");
             })
         }
 
-        function deleteUser(){
-            UserService.deleteUser(vm.user._id).success(function(){
+        function unregisterUser(){
+            UserService.unregisterUser(vm.user._id).success(function(){
                     $location.url("/login");
                 })
         }

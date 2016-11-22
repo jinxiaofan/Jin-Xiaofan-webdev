@@ -12,7 +12,7 @@ module.exports = function (app) {
     app.get('/api/user', findUser);
     app.get('/api/user/:userId', findUserById);
     app.put('/api/user/:userId', updateUser);
-    app.delete('/api/user/:userId', deleteUser);
+    app.delete('/api/user/:userId', unregisterUser);
 
 
     function createUser(req, res) {
@@ -79,23 +79,23 @@ module.exports = function (app) {
     function updateUser(req, res) {
         var userId = parseInt(req.params.userId);
         var user = req.body;
-        for (var u = 0; u < users.length; u++) {
+        for (var u in users) {
             if (users[u]._id === userId) {
                 users[u] = user;
                 break;
             }
         }
-        res.sendStatus(200);
+        res.send(200);
     }
 
 
-    function deleteUser(req, res) {
+    function unregisterUser(req, res) {
         var userId = parseInt(req.params.userId);
-        for (var u = 0; u < users.length; u++) {
+        for (var u in users) {
             if (users[u]._id == userId) {
                 users.slice(u, 1);
             }
         }
-        res.sendStatus(200);
+        res.send(200);
     }
 };
