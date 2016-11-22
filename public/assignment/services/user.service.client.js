@@ -24,14 +24,8 @@
         }
 
         function findUserByUsername(username) {
-            var allUsers = [];
-            for (var u in users) {
-                user = users[u];
-                if (user.username === username) {
-                    allUsers.push(user);
-                }
-            }
-            return allUsers;
+            var url = '/api/user?username=/' + username;
+            return $http.get(url);
         }
 
 
