@@ -25,16 +25,22 @@
         var vm = this;
         vm.register = register;
         function register(username, password, varyPassword){
-            if (password != varyPassword){
-                vm.error = "Different Passwords typed in";
-            }
-            else {
-                UserService
-                    .createUser(username,password)
-                    .success(function(user){
-                        $location.url("/user/" + user._id);
-                    })
-            }
+            UserService.findUserByUserName(username)
+                .success(function (user) {
+                    if (user == 0) {
+                        if (password === varyPassword){
+                            UserService
+                                .createUser(username,password)
+                                .success(function(user){
+                                    $location.url("/user/" + user._id);
+                                })
+                        } else {
+                            vm.error = "Different passwords typed in";
+                        }
+                    } else {
+                        vm.error = "This UserName has been used";
+                    }
+                })
         }
     }
 
@@ -43,11 +49,12 @@
         var vm = this;
         var userId = parseInt($routeParams['uid']);
 
-        vm.updateProfile = updateProfile;
+        vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
+
 
         function init() {
-            var promise = UserService.findUserById(userId);
-            promise.success(function (user) {
+            UserService.findUserById(userId).success(function (user) {
                 if (user != '0') {
                     vm.user = user;
                 }
@@ -56,12 +63,16 @@
         init();
 
 
-        function updateProfile() {
-            UserService.updateUser(userId, vm.user).success(function (user) {
-                if (user != '0') {
-                    vm.user = user;
-                }
+        function updateUser() {
+            UserService.updateUser(vm.user).success(function (user) {
+                $location.url("/login");
             })
+        }
+
+        function deleteUser(){
+            UserService.deleteUser(vm.user._id).success(function(){
+                    $location.url("/login");
+                })
         }
     }
 })();
