@@ -14,7 +14,7 @@
         return api;
 
 
-        function createPage(page) {
+        function createPage(websiteId, page) {
             var url = "/api/website/" + websiteId +"/page";
             return $http.post(url, page);
         }
@@ -30,13 +30,13 @@
         }
 
 
-        function updatePage(page) {
+        function updatePage(pageId, page) {
             var url = '/api/page/' + pageId;
             return $http.put(url, page);
         }
 
 
-        function deletePage(userId) {
+        function deletePage(pageId) {
             var url = '/api/page/' + pageId;
             return $http.delete(url);
         }
