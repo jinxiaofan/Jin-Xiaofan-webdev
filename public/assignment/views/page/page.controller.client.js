@@ -17,27 +17,43 @@
         vm.deletePage = deletePage;
 
         function init() {
-            PageService.findPagesByWebsiteId(vm.websiteId).success(function(pages){
+            PageService.findPagesByWebsiteId(vm.websiteId)
+                .success(function(pages){
                 vm.pages = pages;
-            });
+            })
+                .error(function () {
 
-            PageService.findPageById(vm.pageId).success(function(page){
+                });
+
+            PageService.findPageById(vm.pageId)
+                .success(function(page){
                 vm.page = page;
             })
+                .error(function () {
+
+                });
         }
         init();
 
 
         function updatePage(){
-            PageService.updatePage(vm.pageId , vm.page ).success(function(){
+            PageService.updatePage(vm.pageId , vm.page )
+                .success(function(){
                 $location.url("/user/" + vm.userId  + "/website/" + vm.websiteId + "/page");
             })
+                .error(function () {
+
+                });
         }
 
         function deletePage(){
-            PageService.deletePage(vm.pageId).success(function(){
+            PageService.deletePage(vm.pageId)
+                .success(function(){
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             })
+                .error(function () {
+
+                });
         }
     }
 
@@ -49,9 +65,13 @@
 
 
         function init() {
-            PageService.findPagesByWebsiteId(vm.websiteId).success(function (pages) {
+            PageService.findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
                 vm.pages = pages;
-            });
+            })
+                .error(function () {
+
+                });
         }
         init();
     }
@@ -64,9 +84,13 @@
         vm.websiteId = websiteId;
         vm.createPage = createPage;
         function init() {
-            PageService.findPagesByWebsiteId(vm.websiteId).success(function (pages) {
+            PageService.findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
                 vm.pages = pages;
-            });
+            })
+                .error(function () {
+
+                });
         }
         init();
 
@@ -74,9 +98,13 @@
         function createPage() {
             vm.page. _id = (new Date()).getTime();
             vm.page.websiteId = vm.websiteId;
-            PageService.createPage(vm.websiteId,  vm.page).success(function(){
+            PageService.createPage(vm.websiteId,  vm.page)
+                .success(function(){
                 $location.url("/user/" +  vm.page. _id + "/website/" +  vm.websiteId + "/page/" + vm.page. _id);
             })
+                .error(function () {
+
+                });
         }
     }
 })();

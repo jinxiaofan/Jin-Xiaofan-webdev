@@ -78,14 +78,22 @@
 
         function updateUser() {
             console.log(vm.user);
-            UserService.updateUser(vm.user).success(function (user) {
+            UserService.updateUser(vm.user)
+                .success(function (user) {
                 $location.url("/login");
             })
+                .error(function () {
+                    
+                })
         }
 
         function unregisterUser(){
-            UserService.unregisterUser(vm.user._id).success(function(){
+            UserService.unregisterUser(vm.user._id)
+                .success(function(){
                     $location.url("/login");
+                })
+                .error(function () {
+                    
                 })
         }
     }

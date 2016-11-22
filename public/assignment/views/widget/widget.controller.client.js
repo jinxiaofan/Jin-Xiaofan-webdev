@@ -17,9 +17,13 @@
         vm.checkSafeIMAGE = checkSafeIMAGE;
 
         function init() {
-            WidgetService.findWidgetsByPageId(vm.pageId).success(function (widgets) {
+            WidgetService.findWidgetsByPageId(vm.pageId)
+                .success(function (widgets) {
                 vm.widgets = widgets;
-            });
+            })
+                .error(function () {
+
+                })
         }
         init();
 
@@ -56,10 +60,14 @@
             var tempWidget = {
                 widgetType: widgetType
             };
-            WidgetService.createWidget(vm.pageId, tempWidget).success(function (widget) {
+            WidgetService.createWidget(vm.pageId, tempWidget)
+                .success(function (widget) {
                 tempWidget = widget;
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + tempWidget._id);
-            });
+            })
+                .error(function () {
+
+                });
         }
     }
 
@@ -74,23 +82,35 @@
         vm.updateTheWidget = updateTheWidget;
 
         function init() {
-            WidgetService.findWidgetById(vm.widgetId).success(function (widget) {
+            WidgetService.findWidgetById(vm.widgetId)
+                .success(function (widget) {
                 vm.widget = widget;
-            });
+            })
+                .error(function () {
+
+                })
         }
         init();
 
         function deleteTheWidget() {
-            WidgetService.deleteWidget(vm.widgetId).success(function (status) {
+            WidgetService.deleteWidget(vm.widgetId)
+                .success(function (status) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            });
+            })
+                .error(function () {
+
+                })
         }
 
         function updateTheWidget(widget) {
-            WidgetService.updateWidget(vm.widgetId, widget).success(function (widget) {
+            WidgetService.updateWidget(vm.widgetId, widget)
+                .success(function (widget) {
                 if (widget != '0') {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                 }
+            })
+                .error(function () {
+
             });
         }
     }

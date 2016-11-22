@@ -19,10 +19,16 @@
                 .success(function(websites){
                     vm.websites = websites;
                 })
+                .error(function () {
+                    
+                })
 
             WebsiteService.findWebsiteById(vm.wid)
                 .success(function(website){
                     vm.website = website;
+                })
+                .error(function () {
+                    
                 })
         }
         init();
@@ -34,9 +40,13 @@
         }
 
         function deleteWebsite() {
-            WebsiteService.deleteWebsite(vm.website._id).success(function(){
+            WebsiteService.deleteWebsite(vm.website._id)
+                .success(function(){
                 $location.url("/user/" + vm.userId  + "/website");
             })
+                .error(function () {
+
+                });
         }
     }
 
@@ -46,9 +56,13 @@
         vm.userId = parseInt($routeParams['uid']);
 
         function init() {
-            WebsiteService.findWebsitesByUser(vm.userId).success(function (websites) {
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function (websites) {
                 vm.websites = websites;
-            });
+            })
+                .error(function () {
+
+                })
         }
         init();
     }
@@ -59,17 +73,26 @@
         vm.createWebsite = createWebsite;
 
         function init() {
-            WebsiteService.findWebsitesByUser(vm.userId).success(function (websites) {
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function (websites) {
                 vm.websites = websites;
-            });        }
+            })
+                .error(function () {
+
+                });
+        }
         init();
 
 
         function createWebsite(newWebSite) {
             newWebSite.developerId = vm.userId;
-            WebsiteService.createWebsite(newWebSite._id, newWebSite).success(function(){
+            WebsiteService.createWebsite(newWebSite._id, newWebSite)
+                .success(function(){
                 $location.url("/user/" +  newWebSite.developerId  + "/website");
-            });
+            })
+                .error(function () {
+
+                });
         }
     }
 })();
