@@ -19,7 +19,8 @@
 <div class="container-fluid">
     <div class="list-group relative RightPadding">
 
-        <div ng-switch="widget.widgetType" ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.widgetType" class="wam-widget"
+             ng-repeat="widget in model.widgets">
 
             <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}"
                class="glyphiconPositionRight">

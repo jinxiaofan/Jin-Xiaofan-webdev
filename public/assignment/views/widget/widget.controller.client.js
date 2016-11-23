@@ -23,7 +23,9 @@
             })
                 .error(function () {
 
-                })
+                });
+            var allWedgets = $(".wam-widget");
+            alert(allWedgets.length);
         }
         init();
 
