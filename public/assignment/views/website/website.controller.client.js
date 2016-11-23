@@ -86,10 +86,11 @@
 
 
         function createWebsite(newWebSite) {
-            newWebSite.developerId = vm.userId;
-            WebsiteService.createWebsite(newWebSite._id, newWebSite)
+            newWebSite.developerId = userId;
+            newWebSite._id = (new Date()).getTime();
+            WebsiteService.createWebsite(userId, newWebSite)
                 .success(function(){
-                $location.url("/user/" +  newWebSite.developerId  + "/website");
+                $location.url("/user/" +  userId  + "/website");
             })
                 .error(function () {
 
