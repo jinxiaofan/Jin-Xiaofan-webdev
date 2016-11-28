@@ -9,7 +9,6 @@ module.exports = function (app) {
         {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
     ];
 
-
     app.post('/api/page/:pid/widget', createWidget);
     app.get('/api/page/:pid/widget', findWidgetsByPageId);
     app.get('/api/widget/:wgid', findWidgetById);
@@ -66,6 +65,38 @@ module.exports = function (app) {
         res.sendStatus(200);
     }
 
+
+    function uploadImage(req, res) {
+        var wgid = req.body.wgid;
+        var uid = req.body.uid;
+        var wid = req.body.wid;
+        var pid = req.body.pid;
+        var myFile = req.file;
+
+
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in uploads folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+
+        var newUrl = '/assignment/uploads/'+filename;
+        var updateOne = {"name": filename, "widgetType": "IMAGE", "text": req.body.text, "url": newUrl, "width": req.body.width, "pageId" : pid};
+        model
+            .widgetModel
+            .updateWidget(wgid, updateOne)
+            .then(
+                function(status){
+                    console.log(newUrl);
+                    var url = '/assignment/index.html#/user/' + uid + '/website/' + wid + '/page/' + pid + '/widget/';
+                    res.redirect(url);
+                },
+                function(error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
+
+    }
 
 
     function deleteWidget(req,res){
