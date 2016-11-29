@@ -1,0 +1,27 @@
+<nav class="navbar navbar-fixed-top smoke-bg">
+    <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget">
+        <span class = "glyphicon glyphicon-chevron-left pageColor"></span>
+    </a>
+    <a class = "navbar-brand" href = #>
+        <span class = "h3 pageText" id = "topright" >Widget Edit</span>
+    </a>
+    <a ng-click = "model.updateWidget()">
+        <h4 class="glyphicon glyphicon-ok pageColor" ></h4>
+    </a>
+</nav>
+
+<div class="container FisrtTop">
+    Text<input ng-model="model.widget.text" class="form-control"/>
+    Rows<input ng-model="model.widget.rows" class="form-control" type="number"/>
+    Placeholder<input ng-model="model.widget.placeholder" class="form-control"/>
+    Formatted<input ng-model="model.widget.formatted" type="checkbox"/>
+
+    <a ng-click = "model.deleteWidget()"
+       class="btn btn-danger btn-block">Delete</a>
+</div>
+
+<nav class="navbar navbar-fixed-bottom smoke-bg">
+    <a href="#/user/{{model.uid}}">
+        <span id = "pageUser" class="glyphicon glyphicon-user"></span>
+    </a>
+</nav>
