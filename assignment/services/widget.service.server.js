@@ -1,4 +1,6 @@
 module.exports = function (app) {
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({ dest: __dirname+'/../../public/uploads' });
     var widgets = [
         {"_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
         {"_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
@@ -10,6 +12,7 @@ module.exports = function (app) {
     ];
 
     app.post('/api/page/:pid/widget', createWidget);
+    app.post("/api/upload", upload.single('myFile'), uploadImage);
     app.get('/api/page/:pid/widget', findWidgetsByPageId);
     app.get('/api/widget/:wgid', findWidgetById);
     app.put('/api/widget/:wgid', updateWidget);
@@ -20,7 +23,7 @@ module.exports = function (app) {
     function createWidget(req, res) {
         var widget = req.body;
         widgets.push(widget);
-        res.sendStatus(200);
+        res.send(200);
     }
 
     function findWidgetsByPageId(req, res) {
@@ -54,7 +57,7 @@ module.exports = function (app) {
                 break;
             }
         }
-        res.sendStatus(200);
+        res.send(200);
     }
 
     function sortWidget(req, res) {
@@ -62,7 +65,7 @@ module.exports = function (app) {
         var start = req.query.start;
         var end = req.query.end;
         widgets.splice(end, 0, widgets.splice(start, 1)[0]);
-        res.sendStatus(200);
+        res.send(200);
     }
 
 
@@ -72,7 +75,6 @@ module.exports = function (app) {
         var wid = req.body.wid;
         var pid = req.body.pid;
         var myFile = req.file;
-
 
         var originalname  = myFile.originalname; // file name on user's computer
         var filename      = myFile.filename;     // new file name in uploads folder
@@ -92,12 +94,10 @@ module.exports = function (app) {
                     res.redirect(url);
                 },
                 function(error) {
-                    res.sendStatus(400).send(error);
+                    res.send(400).send(error);
                 }
             )
-
     }
-
 
     function deleteWidget(req,res){
         var wgid = req.params.wgid;
@@ -106,6 +106,6 @@ module.exports = function (app) {
                 widgets.splice(wg, 1);
             }
         }
-        res.sendStatus(200);
+        res.send(200);
     }
 };
