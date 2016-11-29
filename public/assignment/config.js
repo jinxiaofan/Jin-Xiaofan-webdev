@@ -64,6 +64,11 @@
                 controller: "WidgetEditController",
                 controllerAs: "model"
             })
+            .when("/searchImage", {
+                templateUrl: "views/widget/widget-flk-search.view.client.html",
+                controller: "myController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo : "/login",
                 controller: "LoginController",

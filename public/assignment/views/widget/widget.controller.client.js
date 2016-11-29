@@ -150,6 +150,5 @@
                 .UpdateWidget(vm.wgid, widget)
                 .then();
         }
-
     }
 })();
