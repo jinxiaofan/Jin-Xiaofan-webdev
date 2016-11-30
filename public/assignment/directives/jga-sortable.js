@@ -9,7 +9,7 @@
         function linker(scope, element, attributes) {
             var start = -1;
             var end = -1;
-            element.sortable({
+            element.jgaSortable({
                 start: function(event, ui){
                     start = $(ui.item).index();
                 },

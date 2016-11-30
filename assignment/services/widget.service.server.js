@@ -21,51 +21,109 @@ module.exports = function (app) {
 
 
     function createWidget(req, res) {
+        // var widget = req.body;
+        // widgets.push(widget);
+        // res.send(200);
         var widget = req.body;
-        widgets.push(widget);
-        res.send(200);
+        model
+            .widgetModel
+            .createWidget(widget)
+            .then(
+                function(widget){
+
+                    res.json(widget);
+                },
+                function(error){
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function findWidgetsByPageId(req, res) {
-        var allWidgets = [];
+        // var allWidgets = [];
+        // var pid = req.params.pid;
+        // for(var wg in widgets){
+        //     if(widgets[wg].pageId === pid){
+        //         allWidgets.push(widgets[wg])
+        //     }
+        // }
+        // res.json(allWidgets);
         var pid = req.params.pid;
-        for(var wg in widgets){
-            if(widgets[wg].pageId === pid){
-                allWidgets.push(widgets[wg])
-            }
-        }
-        res.json(allWidgets);
+        model
+            .widgetModel
+            .findWidgetsByPageId(pid)
+            .then(
+                function(widgets){
+                    if(widgets){
+                        res.json(widgets);
+                    } else {
+                        res.json([]);
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
 
     function findWidgetById(req, res) {
+        // var wgid = req.params.wgid;
+        // for(var wg in widgets){
+        //     if(widgets[wg]._id === wgid){
+        //         res.json(widgets[wg]);
+        //     }
+        // }
         var wgid = req.params.wgid;
-        for(var wg in widgets){
-            if(widgets[wg]._id === wgid){
-                res.json(widgets[wg]);
-            }
-        }
+        model
+            .widgetModel
+            .findWidgetById(wgid)
+            .then(
+                function(widget){
+                    if(widget){
+                        res.json(widget);
+                    } else {
+                        res.send('0')
+                    }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
 
     function updateWidget(req, res){
+        // var widget = req.body;
+        // var wgid = req.params.wgid;
+        // for (var wg in widgets) {
+        //     if (widgets[wg]._id === wgid) {
+        //         widgets[wg] = widget;
+        //         break;
+        //     }
+        // }
+        // res.send(200);
         var widget = req.body;
         var wgid = req.params.wgid;
-        for (var wg in widgets) {
-            if (widgets[wg]._id === wgid) {
-                widgets[wg] = widget;
-                break;
-            }
-        }
-        res.send(200);
+        model
+            .widgetModel
+            .updateWidget(wgid, widget)
+            .then(
+                function(status){
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 
     function sortWidget(req, res) {
         var pageId = req.params.pid;
         var start = req.query.start;
         var end = req.query.end;
-        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
-        res.send(200);
+        //widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        res.sendStatus(200);
     }
 
 
@@ -94,18 +152,30 @@ module.exports = function (app) {
                     res.redirect(url);
                 },
                 function(error) {
-                    res.send(400).send(error);
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
     function deleteWidget(req,res){
+        // var wgid = req.params.wgid;
+        // for (var wg in widgets) {
+        //     if (widgets[wg]._id === wgid) {
+        //         widgets.splice(wg, 1);
+        //     }
+        // }
+        // res.send(200);
         var wgid = req.params.wgid;
-        for (var wg in widgets) {
-            if (widgets[wg]._id === wgid) {
-                widgets.splice(wg, 1);
-            }
-        }
-        res.send(200);
+        model
+            .widgetModel
+            .deleteWidget(wgid)
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },
+                function(error){
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 };

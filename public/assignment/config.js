@@ -70,9 +70,7 @@
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo : "/login",
-                controller: "LoginController",
-                controllerAs : "model"
+                redirectTo : "/login"
             })
     }
 })();
