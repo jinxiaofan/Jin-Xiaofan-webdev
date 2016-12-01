@@ -4,7 +4,7 @@
         .controller("WidgetListController", WidgetListController)
         .controller("WidgetChooserController", WidgetChooserController)
         .controller("WidgetEditController", WidgetEditController)
-        .controller("myController", myController);
+        .controller("FlickrController", FlickrController);
 
     function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
@@ -119,7 +119,7 @@
     }
 
 
-    function myController($http, $routeParams, WidgetService, MyFlickrService){
+    function FlickrController($http, $routeParams, WidgetService, FlikrService){
 
         var vm = this;
         vm.pid = $routeParams.pid;
@@ -130,12 +130,12 @@
         vm.selectPhoto = selectPhoto;
 
         function searchPhotos(searchTerm){
-            console.log("searchTerm");
-            MyFlickrService
+            console.log("hello from searchTerm");
+            FlikrService
                 .searchPhotos(searchTerm)
                 .then(function(response) {
                     data = response.data.replace("jsonFlickrApi(","");
-                    data = data.substring(0,data.length - 1);
+                    data = data.substring(0, data.length - 1);
                     data = JSON.parse(data);
                     vm.photos = data.photos;
                 });

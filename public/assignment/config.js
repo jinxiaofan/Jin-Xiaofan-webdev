@@ -66,7 +66,7 @@
             })
             .when("/searchImage", {
                 templateUrl: "views/widget/widget-flk-search.view.client.html",
-                controller: "myController",
+                controller: "FlickrController",
                 controllerAs: "model"
             })
             .otherwise({

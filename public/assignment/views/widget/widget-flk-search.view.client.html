@@ -1,27 +1,20 @@
-<nav class="navbar navbar-fixed-top bg-primary">
-    <a href="#/user/{{model.uid}}/website/{{mode.wid}}/page/{{mode.pid}}//widget">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class = "navbar-brand" href = "#">
-        <span class = "h3" >Search Flicker</span>
-    </a>
-</nav>
-
-<div class="input-group">
-    <input ng-model="searchText" type="text" class="form-control" placeholder="Search Image">
-    <span class="input-group-btn">
-        <a ng-click="model.searchPhotos(searchTerm)" class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-        </a>
-    </span>
+<div  class="container-fluid" >
+    <h2>Search Flicker</h2>
+    <h3>phone search</h3>
+    <div class="input-group">
+        <input ng-model="searchText" type="text" class="form-control" placeholder="Search Image">
+        <span class="input-group-btn">
+            <a ng-click="model.searchPhotos(searchTerm)" class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+        </span>
+    </div>
 </div>
-
 
 <div class="row">
     <div class="col-xs-4" ng-repeat="photo in model.photos.photo">
         <img ng-click="model.selectPhoto(photo)"
-             ng-src="https://farm{{photo.farm}}.staticflickr.com/
-             {{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
+             ng-src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
     </div>
 </div>
 
