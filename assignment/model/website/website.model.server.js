@@ -31,9 +31,7 @@ module.exports = function() {
     function updateWebsite(websiteId, website){
         return WebsiteModel
             .update(
-                {
-                    _id: websiteId
-                },
+                {_id: websiteId},
                 {
                     "name" : website.name,
                     "description" : website.description,

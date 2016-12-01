@@ -42,9 +42,7 @@ module.exports = function() {
         if(widget.formatted == null){
             widget.formatted = true;
         }
-        return WidgetModel.update({
-                _id: widgetId
-            },
+        return WidgetModel.update({_id: widgetId},
             {
                 "pageId": widget.pageId,
                 "widgetType": widget.widgetType,

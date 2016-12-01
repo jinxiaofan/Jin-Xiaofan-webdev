@@ -13,7 +13,6 @@ module.exports = function () {
     };
     return api;
 
-
     function createPage(page){
         return PageModel.create(page);
     }
@@ -32,9 +31,7 @@ module.exports = function () {
     function updatePage(pid, page){
         return PageModel
             .update(
-                {
-                    _id: pid
-                },
+                {_id: pid},
                 {
                     "name" : page.name,
                     "title": page.title,

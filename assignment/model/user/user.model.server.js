@@ -31,9 +31,7 @@ module.exports = function() {
     function updateUser(userId, user){
         return UserModel
             .update(
-                {
-                    _id: userId
-                },
+                {_id: userId},
                 {
                     username : user.username,
                     password : user.password,
