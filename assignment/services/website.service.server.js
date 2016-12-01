@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app,model) {
     var websites = [
         { _id: 123, name: "Facebook",    developerId: 456 , description: "I am facebook!"},
         { _id: 234, name: "Tweeter",     developerId: 456, description: "I am tweeter!" },
