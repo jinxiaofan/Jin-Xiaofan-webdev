@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app,model) {
     console.log("hello from user service server");
     var users = [
         {_id: 123, username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder", email: "alice@gmail.com"},
