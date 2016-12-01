@@ -24,7 +24,6 @@
                 });
             }
         }
-    
 
     function RegisterController(UserService, $location) {
         var vm = this;
