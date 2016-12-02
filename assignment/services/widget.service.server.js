@@ -141,6 +141,8 @@ module.exports = function (app,model) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
+        res.send(myFile); // to check the imformation
+
         var newUrl = '/assignment/uploads/'+filename;
         var updateOne = {"name": filename, "widgetType": "IMAGE", "text": req.body.text, "url": newUrl, "width": req.body.width, "pageId" : pid};
         model
@@ -148,7 +150,6 @@ module.exports = function (app,model) {
             .updateWidget(wgid, updateOne)
             .then(
                 function(status){
-                    console.log(newUrl);
                     var url = '/assignment/index.html#/user/' + uid + '/website/' + wid + '/page/' + pid + '/widget/';
                     res.redirect(url);
                 },
