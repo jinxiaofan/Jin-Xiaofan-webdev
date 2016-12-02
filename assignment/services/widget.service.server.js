@@ -139,6 +139,7 @@ module.exports = function (app,model) {
         var path          = myFile.path;         // full path of uploaded file
         var destination   = myFile.destination;  // folder where file is saved to
         var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
 
         var newUrl = '/assignment/uploads/'+filename;
         var updateOne = {"name": filename, "widgetType": "IMAGE", "text": req.body.text, "url": newUrl, "width": req.body.width, "pageId" : pid};
