@@ -20,7 +20,7 @@
         function init() {
             WidgetService.findWidgetsByPageId(vm.pageId)
                 // var widgets = $(".wam-widget")
-                //     .sortable({
+                //     .wamSortable({
                 //         axis:'y'
                 //     });
                 // console.log(widgets);

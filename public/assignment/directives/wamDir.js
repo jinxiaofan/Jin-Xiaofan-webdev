@@ -1,40 +1,40 @@
 (function(){
     angular
-        .module("jgaDirectives",[])
-        .directive("jgaSortable", jgaSortable);
+        .module("wamDirectives",[])
+        .directive("wamSortable", wamSortable);
 
-    function jgaSortable() {
-
+    function sortable() {
+        console.log("hello from wamSortable");
 
         function linker(scope, element, attributes) {
             var start = -1;
             var end = -1;
-            element.jgaSortable({
+            element.sortable({
                 start: function(event, ui){
                     start = $(ui.item).index();
                 },
                 stop: function(event, ui) {
                     end = $(ui.item).index();
-                    scope.jgaSortableController.sort(start, end);
+                    scope.sortableController.sort(start, end);
                 }
             });
         }
         return {
             scope:{pid : "@"},
             link: linker,
-            controller: jgaSortableController,
-            controllerAs: 'jgaSortableController'
+            controller: sortableController,
+            controllerAs: 'sortableController'
         };
 
 
 
-        function jgaSortableController(WidgetService){
+        function sortableController(WidgetService){
 
             var vm = this;
             vm.sort = sort;
 
             function sort(start, end){
-                WidgetService.sortWidget(vm.pid, start, end)
+                WidgetService.sort(vm.pid, start, end)
             }
         }
     }
