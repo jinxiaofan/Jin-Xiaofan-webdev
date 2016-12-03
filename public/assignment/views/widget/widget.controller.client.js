@@ -63,10 +63,10 @@
             var tempWidget = {
                 widgetType: widgetType
             };
-            WidgetService.createWidget(vm.pageId, tempWidget)
+            WidgetService.createWidget(vm.pid, tempWidget)
                 .success(function (widget) {
                 tempWidget = widget;
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + tempWidget._id);
+                $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + tempWidget._id);
             })
                 .error(function () {
 
@@ -96,21 +96,19 @@
         init();
 
         function deleteTheWidget() {
-            WidgetService.deleteWidget(vm.widgetId)
-                .success(function (status) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+            WidgetService.deleteWidget(vm.wid)
+                .success(function () {
+                $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
             })
                 .error(function () {
 
                 })
         }
 
-        function updateTheWidget(widget) {
-            WidgetService.updateWidget(vm.widgetId, widget)
-                .success(function (widget) {
-                if (widget != '0') {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                }
+        function updateTheWidget() {
+            WidgetService.updateWidget(vm.wid, vm.widget)
+                .success(function () {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
             })
                 .error(function () {
 

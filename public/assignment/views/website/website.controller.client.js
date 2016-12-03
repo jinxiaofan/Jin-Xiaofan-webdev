@@ -23,7 +23,7 @@
                     
                 })
 
-            WebsiteService.findWebsiteById(vm.wid)
+            WebsiteService.findWebsiteById(vm.websiteId)
                 .success(function(website){
                     vm.website = website;
                 })
