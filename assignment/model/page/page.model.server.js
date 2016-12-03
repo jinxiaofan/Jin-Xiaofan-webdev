@@ -9,7 +9,6 @@ module.exports = function () {
         findPageById: findPageById,
         updatePage: updatePage,
         deletePage: deletePage
-
     };
     return api;
 

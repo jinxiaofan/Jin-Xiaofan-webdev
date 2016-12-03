@@ -1,6 +1,7 @@
 module.exports = function () {
     var mongoose =  require('mongoose');
     mongoose.Promise = global.Promise;
+    //mongoose.Promise = ("mongodb://jin:jin@ds035836.mlab.com:35836/jin");
 
     var userModel = require("./user/user.model.server")();
     var websiteModel = require("./website/website.model.server")();
@@ -13,7 +14,5 @@ module.exports = function () {
         pageModel: pageModel,
         widgetModel: widgetModel
     };
-
     return model;
-
 };

@@ -28,7 +28,7 @@ module.exports = function (app,model) {
             .createPage(page)
             .then(
                 function (newPage) {
-                    res.send(newPage);
+                    res.json(newPage);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);
