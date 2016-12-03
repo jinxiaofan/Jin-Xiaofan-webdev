@@ -48,6 +48,9 @@
                         vm.error = "This UserName has been used";
                     }
                 })
+                .error(function () {
+                    
+                })
         }
     }
 
