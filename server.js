@@ -5,8 +5,10 @@ var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 var passport = require('passport');
 
-
 var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // to requirs only the body part
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

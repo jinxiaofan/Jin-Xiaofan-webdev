@@ -30,6 +30,10 @@ module.exports = function (app,model) {
     app.delete('/api/user/:userId', unregisterUser);
 
 
+    function login(res, req) {
+        var user = req.user;
+        res.json(user);
+    }
 
     function logout(req, res) {
         req.logout();
