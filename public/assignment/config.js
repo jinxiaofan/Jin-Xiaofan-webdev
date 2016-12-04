@@ -64,7 +64,7 @@
                 controller: "WidgetEditController",
                 controllerAs: "model"
             })
-            .when("/searchImage", {
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/searchImage", {
                 templateUrl: "views/widget/widget-flk-search.view.client.html",
                 controller: "FlickrController",
                 controllerAs: "model"
