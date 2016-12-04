@@ -24,7 +24,9 @@ module.exports = function (app,model) {
 
 
 
+    function updateIndex(req, res) {
 
+    }
 
     function createWidget(req, res) {
         // var widget = req.body;
