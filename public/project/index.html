@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MyMusic">
 <head>
+    <link href="../assignment/css/style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="app.js"></script>
     <meta charset="UTF-8">
-    <title>Project Home Page</title>
+    <title>Cool_Wo_MusicPlayer</title>
 </head>
 <body>
-    <h1>Project Home Page</h1>
+<div class="container-fluid" ng-controller="MovieSearchController as model">
+    <h1>COOl WO</h1>
+
+    <div class="input-group">
+        <input ng-model="title" type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+        <button ng-click="model.searchMovieByTitle(title)" class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Song</th>
+            <th>Singer</th>
+            <th>Album</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="movie in model.movies">
+            <td>{{movie.Title}}</td>
+            <td>{{movie.Year}}</td>
+            <td><img ng-src="{{movie.Poster}}"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
