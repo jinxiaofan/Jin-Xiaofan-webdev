@@ -1,93 +1,98 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .controller("PageEditController", PageEditController)
         .controller("PageListController", PageListController)
-        .controller("PageNewController", PageNewController);
+        .controller("NewPageController", NewPageController)
+        .controller("EditPageController", EditPageController);
 
 
-    function PageEditController($routeParams, PageService, $location) {
+    function PageListController($routeParams, PageService) {
 
         var vm = this;
+        vm.userId = parseInt($routeParams.uid);
+        vm.websiteId = parseInt($routeParams.wid);
 
-        vm.userId = parseInt($routeParams['uid']);
-        vm.websiteId = parseInt($routeParams['wid']);
-        vm.pageId = parseInt($routeParams['pid']);
+
+
+        function init() {
+            var promise = PageService.findPagesByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+
+                });
+        }
+        init();
+    }
+
+
+    function NewPageController($routeParams, PageService, $location) {
+
+        var vm = this;
+        var userId = parseInt($routeParams.uid);
+        var websiteId = parseInt($routeParams.wid);
+        vm.userId = userId;
+        vm.websiteId = websiteId;
+        vm.createPage = createPage;
+
+
+        function init() {
+            var promise = PageService.findPagesByWebsiteId(websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+
+                });
+        }
+
+        init();
+
+        function createPage(page) {
+            page._id = (new Date()).getTime();
+            page.websiteId = websiteId;
+            var promise = PageService.createPage(page);
+            promise
+                .success(function () {
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                })
+                .error(function () {
+
+                });
+        }
+    }
+
+
+    function EditPageController($routeParams, PageService, $location) {
+
+        var vm = this;
+        var userId = parseInt($routeParams.uid);
+        var websiteId = parseInt($routeParams.wid);
+        var pageId = $routeParams.pid;
+
+        vm.pageId = pageId;
+        vm.userId = userId;
+        vm.websiteId = websiteId;
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
 
         function init() {
-            PageService.findPagesByWebsiteId(vm.websiteId)
-                .success(function(pages){
-                vm.pages = pages;
-            })
+            var promise = PageService.findPageById(pageId);
+            promise
+                .success(function (page) {
+                    vm.page = page;
+                })
                 .error(function () {
 
                 });
-
-            PageService.findPageById(vm.pageId)
-                .success(function(page){
-                vm.page = page;
-            })
-                .error(function () {
-
-                });
-        }
-        init();
-
-
-        function updatePage(){
-            PageService.updatePage(vm.pageId , vm.page )
-                .success(function(){
-                $location.url("/user/" + vm.userId  + "/website/" + vm.websiteId + "/page");
-            })
-                .error(function () {
-
-                });
-        }
-
-        function deletePage(){
-            PageService.deletePage(vm.pageId)
-                .success(function(){
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-            })
-                .error(function () {
-
-                });
-        }
-    }
-
-
-    function PageListController($routeParams, PageService) {
-        var vm = this;
-        vm.userId = parseInt($routeParams['uid']);
-        vm.websiteId = parseInt($routeParams['wid']);
-
-
-        function init() {
-            PageService.findPagesByWebsiteId(vm.websiteId)
+            promise = PageService.findPagesByWebsiteId(websiteId);
+            promise
                 .success(function (pages) {
-                vm.pages = pages;
-            })
-                .error(function () {
-
-                });
-        }
-        init();
-    }
-
-    function PageNewController($routeParams, PageService, $location) {
-        var vm = this;
-        var userId = parseInt($routeParams['uid']);
-        var websiteId = parseInt($routeParams['wid']);
-        vm.userId = userId;
-        vm.websiteId = websiteId;
-        vm.createPage = createPage;
-        function init() {
-            PageService.findPagesByWebsiteId(vm.websiteId)
-                .success(function (pages) {
-                vm.pages = pages;
-            })
+                    vm.pages = pages;
+                })
                 .error(function () {
 
                 });
@@ -95,13 +100,24 @@
         init();
 
 
-        function createPage() {
-            vm.page. _id = (new Date()).getTime();
-            vm.page.websiteId = vm.websiteId;
-            PageService.createPage(vm.websiteId,  vm.page)
-                .success(function(){
-                $location.url("/user/" +  vm.page. _id + "/website/" +  vm.websiteId + "/page/" + vm.page. _id);
-            })
+        function updatePage(page) {
+            var promise = PageService.updatePage(page);
+            promise
+                .success(function () {
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                })
+                .error(function () {
+
+                });
+        }
+
+
+        function deletePage(pid) {
+            var promise = PageService.deletePage(pid);
+            promise
+                .success(function () {
+                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+                })
                 .error(function () {
 
                 });

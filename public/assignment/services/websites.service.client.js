@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .factory("WebsiteService", WebsiteService);
 
-    function WebsiteService() {
+    function WebsiteService($http) {
         var api = {
             createWebsite: createWebsite,
             findWebsitesByUser: findWebsitesByUser,
@@ -13,31 +13,29 @@
         };
         return api;
 
-
         function createWebsite(userId, website) {
-            var url = "/api/user/" + userId +"/website";
+            var url = "/api/user/" + userId + "/website";
             return $http.post(url, website);
         }
 
         function findWebsitesByUser(userId) {
-            var url  = "/api/user/" + userId +"/website";
+            var url = "/api/user/" + userId + "/websites";
             return $http.get(url);
         }
 
         function findWebsiteById(websiteId) {
-            var url = '/api/website/' + websiteId;
-            return $http.get(url, websiteId);
+            var url = "/api/website/" + websiteId;
+            return $http.get(url);
         }
 
-        function updateWebsite(websiteId, website) {
-            var url = '/api/website/' + websiteId;
+        function updateWebsite(website) {
+            var url = "/api/website/" + website._id;
             return $http.put(url, website);
         }
 
         function deleteWebsite(websiteId) {
-            var url = '/api/website/' + websiteId;
+            var url = "/api/website/" + websiteId;
             return $http.delete(url);
         }
-
     }
 })();

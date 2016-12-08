@@ -2,15 +2,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-3 navbar-collapsed">
-                <a class="navbar-brand glyphiconPositionLeft white"
+                <a class="navbar-brand pull-left white"
                    href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
                 <a class="navbar-brand white hidden-xs">Pages</a>
             </div>
             <div class="col-sm-9 col-md-9 navbar-collapsed">
-                <a class="navbar-brand white glyphiconPositionLeft white">Edit Page</a>
-                <a class="navbar-brand glyphiconPositionRight white"
+                <a class="navbar-brand white pull-left white">Edit Page</a>
+                <a class="navbar-brand pull-right white"
                    ng-click="model.updatePage()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
@@ -29,10 +29,10 @@
                         {{page.name}}
                     </a>
                     <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/">
-                        <span class="glyphicon glyphicon-cog glyphiconPositionRight"></span>
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                     <a href="#">
-                        <span class="glyphicon glyphicon-play glyphiconPositionRight-leave10"></span>
+                        <span class="glyphicon glyphicon-play glyphiconRight-shift10"></span>
                     </a>
                 </li>
             </ul>
@@ -64,7 +64,7 @@
 
 <nav class="navbar navbar-fixed-bottom navbar-default">
     <div class="container-fluid">
-        <a class="navbar-brand glyphiconPositionRight" href="#/user/{{model.userId}}">
+        <a class="navbar-brand pull-right" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-user blue"></span>
         </a>
 

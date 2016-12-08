@@ -2,15 +2,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-3 navbar-collapsed">
-                <a class="navbar-brand glyphiconPositionLeft white" href="#/user/{{model.userId}}/website/">
+                <a class="navbar-brand pull-left white" href="#/user/{{model.userId}}/website/">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
                 <a class="navbar-brand white hidden-xs" href="#">Websites</a>
             </div>
             <div class="col-sm-9 col-md-9 navbar-collapsed">
-                <a class="navbar-brand white glyphiconPositionLeft white" href="#">Edit Websites</a>
-                <a class="navbar-brand glyphiconPositionRight white"
-                   ng-click="model.updateWebsite()">
+                <a class="navbar-brand white pull-left white" href="#">Edit Websites</a>
+                <a class="navbar-brand pull-right white"
+                   ng-click="model.updateWebsite(model.website)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -30,10 +30,10 @@
                     </a>
 
                     <a href="#/user/{{model.userId}}/website/{{website._id}}">
-                        <span class="glyphicon glyphicon-cog glyphiconPositionRight"></span>
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                     <a href="#">
-                        <span class="glyphicon glyphicon-play glyphiconPositionRight-leave10"></span>
+                        <span class="glyphicon glyphicon-play glyphiconRight-shift10"></span>
                     </a>
                 </li>
             </ul>
@@ -50,7 +50,7 @@
                 <textarea ng-model="model.website.description" class="form-control" rows="5" id="description"
                           placeholder="Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries."></textarea>
             </div>
-            <a ng-click="model.deleteWebsite()"
+            <a ng-click="model.deleteWebsite(model.website._id)"
                class="btn btn-danger  btn-block">Delete</a>
         </div>
     </div>
@@ -61,7 +61,7 @@
 
 <nav class="navbar navbar-fixed-bottom bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand glyphiconPositionRight white" href="#/user/{{model.userId}}">
+        <a class="navbar-brand pull-right white" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>

@@ -25,18 +25,11 @@ table {
     margin-left: 20px;
 }
 
-.glyphiconPositionRight {
-    float: right;
-}
-
-.glyphiconPositionRight-leave10 {
+.glyphiconRight-shift10 {
     padding-right: 10px;
     float: right;
 }
 
-.glyphiconPositionLeft {
-    float: left;
-}
 
 .white {
     color: white;

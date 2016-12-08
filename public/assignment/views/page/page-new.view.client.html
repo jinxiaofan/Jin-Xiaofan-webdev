@@ -2,20 +2,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-3 navbar-collapsed">
-                <a class="navbar-brand glyphiconPositionLeft white"
+                <a class="navbar-brand pull-left white"
                    href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
                 <a class="navbar-brand white hidden-xs">Pages</a>
-                <a class="navbar-brand hidden-xs glyphiconPositionRight white "
+                <a class="navbar-brand hidden-xs pull-right white "
                    href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
                     <span class=" glyphicon glyphicon-plus"></span>
                 </a>
             </div>
             <div class="col-sm-9 col-md-9 navbar-collapsed">
-                <a class="navbar-brand glyphiconPositionLeft white">New Page</a>
+                <a class="navbar-brand pull-left white">New Page</a>
 
-                <a class="navbar-brand glyphiconPositionRight white" ng-click ="model.createPage()">
+                <a class="navbar-brand pull-right white"
+                   ng-click ="model.createPage(page)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
 
@@ -23,8 +24,6 @@
         </div>
     </div>
 </nav>
-
-
 
 
 <div class="container-fluid">
@@ -37,10 +36,10 @@
                         {{page.name}}
                     </a>
                     <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/">
-                        <span class="glyphicon glyphicon-cog glyphiconPositionRight"></span>
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                     <a href="#">
-                        <span class="glyphicon glyphicon-play glyphiconPositionRight-leave10"></span>
+                        <span class="glyphicon glyphicon-play glyphiconRight-shift10"></span>
                     </a>
                 </li>
             </ul>
@@ -49,11 +48,9 @@
             <form id="new-page-form">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input ng-model="model.page.name" type="text" class="form-control" id="name"
-                           placeholder="Page Name">
+                    <input ng-model="model.page.name" type="text" class="form-control" id="name" placeholder="Page Name">
                     <label for="title">Title</label>
-                    <input ng-model="model.page.title" type="email" class="form-control" id="title"
-                           placeholder="Page Title">
+                    <input ng-model="model.page.title" type="email" class="form-control" id="title" placeholder="Page Title">
                 </div>
             </form>
         </div>
@@ -64,7 +61,7 @@
 
 <nav class="navbar navbar-fixed-bottom navbar-default">
     <div class="container-fluid">
-        <a class="navbar-brand glyphiconPositionRight" href="#/user/{{model.userId}}">
+        <a class="navbar-brand pull-right" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-user blue"></span>
         </a>
     </div>

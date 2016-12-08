@@ -1,19 +1,19 @@
 var express = require('express');
 var app = express();
 
-var cookieParser = require('cookie-parser');
-var session      = require('express-session');
-var passport = require('passport');
+// var cookieParser = require('cookie-parser');
+// var session      = require('express-session');
+// var passport = require('passport');
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // to requirs only the body part
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(session({ secret: process.env.SESSION_SECRET }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cookieParser());
+// app.use(session({ secret: process.env.SESSION_SECRET }));
 
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));

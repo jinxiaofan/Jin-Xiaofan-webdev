@@ -26,12 +26,12 @@
             })
             .when("/user/:uid/website/new", {
                 templateUrl: "views/website/website-new.view.client.html",
-                controller: "WebsiteNewController",
+                controller: "NewWebsiteController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid", {
                 templateUrl: "views/website/website-edit.view.client.html",
-                controller: "WebsiteEditController",
+                controller: "EditWebsiteController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page", {
@@ -41,12 +41,12 @@
             })
             .when("/user/:uid/website/:wid/page/new", {
                 templateUrl: "views/page/page-new.view.client.html",
-                controller: "PageNewController",
+                controller: "NewPageController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid", {
                 templateUrl: "views/page/page-edit.view.client.html",
-                controller: "PageEditController",
+                controller: "EditPageController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget", {
@@ -56,38 +56,38 @@
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/new", {
                 templateUrl: "views/widget/widget-chooser.view.client.html",
-                controller: "WidgetChooserController",
+                controller: "ChooseWidgetController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
                 templateUrl: "views/widget/widget-edit.view.client.html",
-                controller: "WidgetEditController",
+                controller: "EditWidgetController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/searchImage", {
-                templateUrl: "views/widget/widget-flk-search.view.client.html",
-                controller: "FlickrController",
-                controllerAs: "model"
-            })
+            // .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/searchImage", {
+            //     templateUrl: "views/widget/widget-flk-search.view.client.html",
+            //     controller: "FlickrController",
+            //     controllerAs: "model"
+            // })
             .otherwise({
                 redirectTo : "/login"
             });
 
-        function checkLogin($q, UserService ,$location) {
-            var deferred = $q.defer();
-            UserService
-                .checkLogin()
-                .success(
-                    function (user) {
-                        if (user != '0') {
-                            deferred.resolve();
-                        } else {
-                            deferred.reject();
-                            $location.url("/login");
-                        }
-                    }
-                );
-            return deferred.promise;
-        }
+        // function checkLogin($q, UserService ,$location) {
+        //     var deferred = $q.defer();
+        //     UserService
+        //         .checkLogin()
+        //         .success(
+        //             function (user) {
+        //                 if (user != '0') {
+        //                     deferred.resolve();
+        //                 } else {
+        //                     deferred.reject();
+        //                     $location.url("/login");
+        //                 }
+        //             }
+        //         );
+        //     return deferred.promise;
+        // }
     }
 })();

@@ -1,9 +1,9 @@
 <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
-        <a class="navbar-brand glyphiconPositionLeft" href="#/user/{{model.userId}}/website">
+        <a class="navbar-brand pull-left" href="#/user/{{model.userId}}/website">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-        <a class="navbar-brand col-m-6 glyphiconPositionRight"
+        <a class="navbar-brand col-m-6 pull-right"
            href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
             <span class=" glyphicon glyphicon-plus"></span>
             <div class="navbar-header">
@@ -21,10 +21,10 @@
                 {{page.name}}
             </a>
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/">
-                <span class="glyphicon glyphicon-cog glyphiconPositionRight"></span>
+                <span class="glyphicon glyphicon-cog pull-right"></span>
             </a>
             <a href="#">
-                <span class="glyphicon glyphicon-play glyphiconPositionRight-leave10"></span>
+                <span class="glyphicon glyphicon-play glyphiconRight-shift10"></span>
             </a>
         </li>
     </ul>
@@ -34,7 +34,7 @@
 
 <nav class="navbar navbar-fixed-bottom navbar-default">
     <div class="container-fluid">
-        <a class="navbar-brand glyphiconPositionRight" href="#/user/{{model.userId}}">
+        <a class="navbar-brand pull-right" href="#/user/{{model.userId}}">
             <span class="glyphicon glyphicon-user blue"></span>
         </a>
 

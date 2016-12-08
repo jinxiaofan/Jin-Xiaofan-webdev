@@ -10,64 +10,47 @@
             findUserByCredentials: findUserByCredentials,
             findUserByUsername: findUserByUsername,
             updateUser: updateUser,
-            unregisterUser: unregisterUser,
-            login: login,
-            checkLogin: checkLogin,
-            logout: logout
+            unregisterUser: unregisterUser
         };
         return api;
 
-        function login(username, password) {
-            var user = {
-                username: username,
-                password: password
-            };
-            return $http.post("/api/login", user);
-        }
-        
-        function logout() {
-            return $http.post("/api/logout");
-        }
-        
-        function checkLogin() {
-            return $http.post("/api/checkLogin");
-        }
-
-        function updateUser(user) {
-            var url = "/api/user/" + user._id;
-            return $http.put(url, user);
-        }
-
-
-        function unregisterUser(userId) {
-            var url = "/api/user/" + userId;
-            return $http.delete(url);
-        }
-
-
         function createUser(username, password) {
-            var user = {
+            var objUser = {
                 username: username,
-                password: password
-            };
-            return $http.post('/api/user', user);
+                passord: password
+            }
+            return $http.post("/api/user", objUser);
+        }
+
+        function findUserById(userId) {
+            var url = "/api/user/" + userId;
+            return $http.get(url);
         }
 
         function findUserByUsername(username) {
-            var url = '/api/user?username=/' + username;
-            return $http.get(url);
-        }
-
-
-        function findUserById(userId) {
-            var url = '/api/user/' + userId;
-            return $http.get(url);
+            for (var u in users) {
+                user = users[u];
+                if (user.username === username) {
+                    return user;
+                }
+            }
+            return null;
         }
 
 
         function findUserByCredentials(username, password) {
-            var url = '/api/user?username='+username+'&password='+password;
+            var url = '/api/user?username=' + username + '&password' + password;
             return $http.get(url);
+        }
+
+        function updateUser(user) {
+            var url = "/api/user/" + user._id;
+            $http.put(url, user);
+        }
+
+        function unregisterUser(userId) {
+            var url = "/api/user/" + userId;
+            return $http.delete(url);
         }
     }
 })();

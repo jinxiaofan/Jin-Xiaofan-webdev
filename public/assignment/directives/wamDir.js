@@ -20,7 +20,9 @@
             });
         }
         return {
-            scope:{pid : "@"},
+            scope:{
+                //pid : "@"
+            },
             link: linker,
             controller: sortableController,
             controllerAs: 'sortableController'
@@ -34,7 +36,8 @@
             vm.sort = sort;
 
             function sort(start, end){
-                WidgetService.sort(vm.pid, start, end)
+                //WidgetService.sort(vm.pid, start, end)
+                WidgetService.sort(start, end)
             }
         }
     }

@@ -8,56 +8,43 @@
             createWidget: createWidget,
             findWidgetsByPageId: findWidgetsByPageId,
             findWidgetById: findWidgetById,
-            loadDefaultWidgetType : loadDefaultWidgetType,
             updateWidget: updateWidget,
             deleteWidget: deleteWidget,
-            sortWidget:sortWidget
+            sort : sort
         };
         return api;
 
-
-        function createWidget(pageId, widget) {
-            var url = "/api/page/" + pageId +"/widget";
-            return $http.post(url, widget)
+        function sort(start, end) {
+            var url = "/api/widget?start=START&end=END";
+            url = url.replace("START", start);
+            url = url.replace("END", end);
+            $http.put(url);
         }
 
-        function loadDefaultWidgetType(widgetType) {
-            var type = [];
-            for (var wg in widgets) {
-                if (widgets[wg].template == widgetType) {
-                    type.push(widgets[wg]);
-                }
-            }
-            return type;
-        }
 
+        function createWidget(widget) {
+            var url = "/api/page/" + widget.pageId + "/widget";
+            return $http.post(url, widget);
+        }
 
         function findWidgetsByPageId(pageId) {
-            var url = "/api/page/" + pageId +"/widget";
+            var url = "/api/page/" + pageId + "/widget";
             return $http.get(url);
         }
 
-
         function findWidgetById(widgetId) {
-            var url = '/api/widget/' + widgetId;
-            return $http.get(url, widgetId);
+            var url = "/api/widget/" + widgetId;
+            return $http.get(url);
         }
 
-
-        function updateWidget(widgetId, widget) {
-            var url = '/api/widget/' + widgetId;
+        function updateWidget(widget) {
+            var url = "/api/widget/" + widget._id;
             return $http.put(url, widget);
         }
 
-
         function deleteWidget(widgetId) {
-            var url = '/api/widget/' + widgetId;
+            var url = "/api/widget/" + widgetId;
             return $http.delete(url);
-        }
-
-        function sortWidget(pid, start, end) {
-            var url = "/api/page/" + pid + "/widget?start=" + start + "&end=" + end;
-            return $http.put(url);
         }
     }
 })();
