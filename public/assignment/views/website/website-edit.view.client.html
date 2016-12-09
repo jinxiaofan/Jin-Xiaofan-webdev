@@ -10,7 +10,7 @@
             <div class="col-sm-9 col-md-9 navbar-collapsed">
                 <a class="navbar-brand white pull-left white" href="#">Edit Websites</a>
                 <a class="navbar-brand pull-right white"
-                   ng-click="model.updateWebsite(model.website)">
+                   ng-click="model.updateWebsite()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -50,7 +50,7 @@
                 <textarea ng-model="model.website.description" class="form-control" rows="5" id="description"
                           placeholder="Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries."></textarea>
             </div>
-            <a ng-click="model.deleteWebsite(model.website._id)"
+            <a ng-click="model.deleteWebsite()"
                class="btn btn-danger  btn-block">Delete</a>
         </div>
     </div>
@@ -58,10 +58,9 @@
 
 
 
-
 <nav class="navbar navbar-fixed-bottom bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand pull-right white" href="#/user/{{model.userId}}">
+        <a class="navbar-brand pull-right white" href="#/user/{{model.uid}}">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>

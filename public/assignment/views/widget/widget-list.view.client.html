@@ -15,8 +15,6 @@
 </nav>
 
 <div wam-sortable pid ="{{model.pid}}">
-
-
 <div class="container-fluid">
     <div class="list-group relative RightPadding">
 
@@ -39,13 +37,14 @@
             <div ng-switch-when = "YOUTUBE">
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class = "embed-responsive-item"
-                            ng-src = "{{model.checkSafeYoutubeUrl(widget.url)}}" frameborder="0" allowfullscreen>
+                            ng-src = "{{model.checkSafeYouTubeUrl(widget.url)}}"
+                            frameborder="0" allowfullscreen>
                     </iframe>
                 </div>
             </div>
 
             <div ng-switch-when = "IMAGE">
-                <img class = "img-responsive" ng-src = "{{model.checkSafeImage(widget.url)}}" />
+                <img class = "img-responsive" ng-src = "{{model.checkSafeImageUrl(widget.url)}}" />
             </div>
 
             <div ng-switch-when="TEXT">

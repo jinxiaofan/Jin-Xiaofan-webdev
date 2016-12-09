@@ -6,121 +6,103 @@
         .controller("EditPageController", EditPageController);
 
 
-    function PageListController($routeParams, PageService) {
-
+    function PageListController($routeParams, PageService){
         var vm = this;
-        vm.userId = parseInt($routeParams.uid);
-        vm.websiteId = parseInt($routeParams.wid);
-
-
+        vm.userId = $routeParams.uid;
+        vm.websiteId = $routeParams.wid;
 
         function init() {
-            var promise = PageService.findPagesByWebsiteId(vm.websiteId);
-            promise
-                .success(function (pages) {
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function(pages){
                     vm.pages = pages;
                 })
-                .error(function () {
+                .error(function(){
 
-                });
+                })
         }
         init();
     }
 
 
-    function NewPageController($routeParams, PageService, $location) {
-
+    function NewPageController($location, $routeParams, PageService){
         var vm = this;
-        var userId = parseInt($routeParams.uid);
-        var websiteId = parseInt($routeParams.wid);
-        vm.userId = userId;
-        vm.websiteId = websiteId;
-        vm.createPage = createPage;
-
+        vm.userId = $routeParams.uid;
+        vm.websiteId = $routeParams.wid;
+        vm.newPage = newPage;
 
         function init() {
-            var promise = PageService.findPagesByWebsiteId(websiteId);
-            promise
-                .success(function (pages) {
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function(pages){
                     vm.pages = pages;
                 })
-                .error(function () {
+                .error(function(){
 
-                });
+                })
         }
-
         init();
 
-        function createPage(page) {
-            page._id = (new Date()).getTime();
-            page.websiteId = websiteId;
-            var promise = PageService.createPage(page);
-            promise
-                .success(function () {
-                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+        function newPage(){
+            vm.page.websiteId = vm.websiteId;
+            PageService.createPage(vm.websiteId,  vm.page)
+                .success(function(){
+                    $location.url("/user/" +  vm.userId + "/website/" +  vm.websiteId + "/page/");
                 })
-                .error(function () {
+                .error(function(){
 
-                });
+                })
         }
     }
 
 
-    function EditPageController($routeParams, PageService, $location) {
-
+    function EditPageController($location, $routeParams, PageService){
         var vm = this;
-        var userId = parseInt($routeParams.uid);
-        var websiteId = parseInt($routeParams.wid);
-        var pageId = $routeParams.pid;
 
-        vm.pageId = pageId;
-        vm.userId = userId;
-        vm.websiteId = websiteId;
-        vm.updatePage = updatePage;
+        vm.userId = $routeParams.uid;
+        vm.websiteId = $routeParams.wid;
+        vm.pageId = $routeParams.pid;
         vm.deletePage = deletePage;
+        vm.updatePage = updatePage;
+
+
 
         function init() {
-            var promise = PageService.findPageById(pageId);
-            promise
-                .success(function (page) {
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function(pages){
+                    vm.pages = pages;
+                })
+                .error(function(){
+
+                });
+
+            PageService.findPageById(vm.pageId)
+                .success(function(page){
                     vm.page = page;
                 })
-                .error(function () {
+                .error(function(){
 
-                });
-            promise = PageService.findPagesByWebsiteId(websiteId);
-            promise
-                .success(function (pages) {
-                    vm.pages = pages;
                 })
-                .error(function () {
 
-                });
         }
         init();
 
 
-        function updatePage(page) {
-            var promise = PageService.updatePage(page);
-            promise
-                .success(function () {
-                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
+        function updatePage(){
+            PageService.updatePage(vm.pageId , vm.page )
+                .success(function(){
+                    $location.url("/user/" + vm.userId  + "/website/" + vm.websiteId + "/page");
                 })
-                .error(function () {
+                .error(function(){
 
-                });
+                })
         }
 
+        function deletePage(){
+            PageService.deletePage(vm.pageId)
+                .success(function(){
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                }).error(function(){
 
-        function deletePage(pid) {
-            var promise = PageService.deletePage(pid);
-            promise
-                .success(function () {
-                    $location.url("/user/" + userId + "/website/" + websiteId + "/page");
                 })
-                .error(function () {
-
-                });
         }
     }
 })();

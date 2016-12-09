@@ -7,12 +7,12 @@
             .when("/login", {
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
-                controllerAs : "model"
+                controllerAs: "model"
             })
             .when("/register", {
                 templateUrl: "views/user/register.view.client.html",
                 controller: "RegisterController",
-                controllerAs : "model"
+                controllerAs: "model"
             })
             .when("/user/:uid", {
                 templateUrl: "views/user/profile.view.client.html",
@@ -64,30 +64,13 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
-            // .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/searchImage", {
-            //     templateUrl: "views/widget/widget-flk-search.view.client.html",
-            //     controller: "FlickrController",
-            //     controllerAs: "model"
-            // })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/searchImage", {
+                templateUrl: "views/widget/widget-flk-search.view.client.html",
+                controller: "FlickrController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo : "/login"
             });
-
-        // function checkLogin($q, UserService ,$location) {
-        //     var deferred = $q.defer();
-        //     UserService
-        //         .checkLogin()
-        //         .success(
-        //             function (user) {
-        //                 if (user != '0') {
-        //                     deferred.resolve();
-        //                 } else {
-        //                     deferred.reject();
-        //                     $location.url("/login");
-        //                 }
-        //             }
-        //         );
-        //     return deferred.promise;
-        // }
     }
 })();

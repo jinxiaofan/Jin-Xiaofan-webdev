@@ -6,20 +6,17 @@
         .controller("EditWebsiteController", EditWebsiteController);
 
 
-    function WebsiteListController($routeParams, WebsiteService) {
-
-
+    function WebsiteListController($routeParams, WebsiteService){
         var vm = this;
-        vm.userId = parseInt($routeParams.uid);
 
+        vm.userId = $routeParams.uid;
 
         function init() {
-            WebsiteService
-                .findWebsitesByUser(vm.userId)
-                .success(function (websites) {
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function(websites){
                     vm.websites = websites;
                 })
-                .error(function () {
+                .error(function(){
 
                 });
         }
@@ -27,20 +24,16 @@
     }
 
 
-    function NewWebsiteController($routeParams, WebsiteService, $location) {
 
-
+    function NewWebsiteController($location, $routeParams, WebsiteService){
         var vm = this;
-        var userId = parseInt($routeParams.uid);
-        var websiteId = parseInt($routeParams.websiteId);
-        vm.userId = userId;
+
+        vm.userId = $routeParams.uid;
         vm.createWebsite = createWebsite;
 
-
         function init() {
-            var promise = WebsiteService.findWebsitesByUser(vm.userId);
-            promise
-                .success(function (websites) {
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function(websites){
                     vm.websites = websites;
                 })
                 .error(function () {
@@ -50,79 +43,63 @@
         init();
 
 
-
-        function createWebsite(newWebsite) {
-            newWebsite._id = (new Date()).getTime();
-            newWebsite.developerId = userId;
-
-            WebsiteService
-                .createWebsite(userId, newWebsite)
-                .success(function () {
-                    $location.url("/user/" + userId + "/website");
+        function createWebsite(newWebSite){
+            newWebSite.developerId = vm.userId;
+            WebsiteService.createWebsite(newWebSite._id, newWebSite)
+                .success(function(){
+                    $location.url("/user/" +  newWebSite.developerId  + "/website");
                 })
                 .error(function () {
-
+                    
                 });
         }
     }
 
 
-    function EditWebsiteController($routeParams, WebsiteService, $location) {
 
-
+    function EditWebsiteController($location, $routeParams, WebsiteService){
         var vm = this;
-        var websiteId = parseInt($routeParams.wid);
-        var userId = parseInt($routeParams.uid);
-        vm.userId = userId;
 
+        vm.userId = $routeParams.uid;
+        vm.wid = $routeParams.wid;
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
 
-
         function init() {
-            WebsiteService
-                .findWebsiteById(websiteId)
-                .success(function (website) {
-                    if (website != '0') {
-                        vm.website = website;
-                    }
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function(websites){
+                    vm.websites = websites;
                 })
-                .error(function () {
+                .error(function(){
 
                 });
 
-            WebsiteService.findWebsitesByUser(userId)
-                .success(function (websites) {
-                    if (websites != '0') {
-                        vm.websites = websites;
-                    }
+            WebsiteService.findWebsiteById(vm.wid)
+                .success(function(website){
+                    vm.website = website;
                 })
-                .error(function () {
+                .error(function(){
 
                 });
         }
         init();
 
-
-
-        function updateWebsite(website) {
-            WebsiteService
-                .updateWebsite(website)
-                .success(function () {
-                    $location.url("/user/" + userId + "/website");
+        function updateWebsite(){
+            WebsiteService.updateWebsite(vm.wid , vm.website)
+                .success(function(){
+                    $location.url("/user/" + vm.userId  + "/website");
                 })
-                .error(function () {
+                .error(function(){
 
                 });
         }
 
-        function deleteWebsite(wid) {
-            WebsiteService
-                .deleteWebsite(wid)
-                .success(function () {
-                    $location.url("/user/" + userId + "/website");
-                })
-                .error(function () {
+
+        function deleteWebsite(){
+            WebsiteService.deleteWebsite(vm.website._id)
+                .success(function(){
+                    $location.url("/user/" + vm.userId  + "/website");
+                }).error(function(){
 
                 });
         }

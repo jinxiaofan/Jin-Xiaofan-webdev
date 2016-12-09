@@ -1,14 +1,14 @@
 (function(){
     angular
         .module("wamDirectives",[])
-        .directive("wamSortable", wamSortable);
+        .directive("sortable", sortable);
 
     function sortable() {
-        console.log("hello from wamSortable");
 
         function linker(scope, element, attributes) {
             var start = -1;
             var end = -1;
+
             element.sortable({
                 start: function(event, ui){
                     start = $(ui.item).index();
@@ -20,23 +20,18 @@
             });
         }
         return {
-            scope:{
-                //pid : "@"
-            },
+            scope:{pid : "@"},
             link: linker,
             controller: sortableController,
             controllerAs: 'sortableController'
         };
 
 
-
         function sortableController(WidgetService){
-
             var vm = this;
             vm.sort = sort;
 
             function sort(start, end){
-                //WidgetService.sort(vm.pid, start, end)
                 WidgetService.sort(start, end)
             }
         }
