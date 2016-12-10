@@ -1,32 +1,104 @@
 module.exports = function(app,model) {
-    var users = [
-        {_id: "123", username: "alice",    password: "alice",    firstName: "Alice", lastName: "Wonder"  },
-        {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",  lastName: "Marley"  },
-        {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  }
-    ];
+    var cookieParser = require('cookie-parser');
+    var session      = require('express-session');
+    var passport = require('passport');
 
+    var LocalStrategy = require('passport-local').Strategy;
+    var bcrypt = require("bcrypt-nodejs");
+
+    app.use(session({
+        secret: "this is a secret",
+        resave: true,
+        saveUninitialized: true
+    }));
+
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/logout', logout);
+    app.post('/api/checkLogin', checkLogin);
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
 
+    function logout(req, res) {
+        req.logout();
+        res.sendStatus(200);
+    }
 
-    function createUser(req, res){
-        var user = req.body;
-        model
-            .userModel
-            .createUser(user)
+
+    function checkLogin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function localStrategy(username, password, done) {
+        model.userModel.findUserByUserName(username)
             .then(
-                function(newUser) {
-                    res.send(newUser);
+                function(user) {
+                   if (user && bcrypt.compareSync(password, user.password)) {
+                       return done(null, user);
+                    } else {
+                       return done(null, '0');
+                    }
                 },
-                function(error) {
-                    res.sendStatus(400)
-                        .send(error);
+                function(err) {
+                    if (err) { return done(err); }
                 }
             );
     }
+
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+
+    function deserializeUser(user, done) {
+        model.userModel.findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+    }
+
+
+    function createUser(req, res){
+        var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
+        model.userModel.createUser(user)
+            .then(
+                function(newUser) {
+                    if(newUser){
+                        req.login(newUser, function(err) {
+                            if(err) {
+                                res.sendStatus(400).send(err);
+                            } else {
+                                res.json(newUser);
+                            }
+                        });
+                    }
+                }
+            );
+    }
+
 
     function findUser(req, res){
         var query = req.query;
@@ -39,32 +111,30 @@ module.exports = function(app,model) {
 
     function findUserByUserName(req, res){
         var username = req.query.username;
-        model
-            .userModel
-            .findUserByUserName(username)
+        model.userModel.findUserByUserName(username)
             .then(
-                function (users) {
-                    if (users) {
-                        if(users[0]) {
-                            res.json(users[0]);
+                function (user) {
+                    if (user) {
+                        if(user) {
+                            res.json(user);
+                        } else {
+                            res.send('0');
                         }
                     } else {
                         res.send('0')
                     }
                 },
                 function (error) {
-                    res.sendStatus(400)
-                        .send(error);
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
+
     function findUserByCredentials(req, res){
         var username = req.query.username;
         var password = req.query.password;
-        model
-            .userModel
-            .findUserByCredentials(username, password)
+        model.userModel.findUserByCredentials(username, password)
             .then(
                 function (users) {
                     if (users) {
@@ -78,11 +148,9 @@ module.exports = function(app,model) {
                     }
                 },
                 function (error) {
-                    res.sendStatus(400)
-                        .send(error);
+                    res.sendStatus(400).send(error);
                 }
             )
-
     }
 
 
@@ -98,46 +166,38 @@ module.exports = function(app,model) {
                     }
                 },
                 function (error) {
-                    res.sendStatus(400)
-                        .send(error);
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
-
-
     function updateUser(req, res){
         var user = req.body;
         var uid = req.params.uid;
-       model
-           .userModel
-           .updateUser(uid, user)
+       model.userModel.updateUser(uid, user)
            .then(
                function(status){
                    res.sendStatus(200);
                },
                function(error) {
-                   res.sendStatus(400)
-                       .send(error);
+                   res.sendStatus(400).send(error);
                }
            )
     }
 
     function deleteUser(req,res){
         var uid = req.params.uid;
-        model
-            .userModel
-            .deleteUser(uid)
+        model.userModel.deleteUser(uid)
             .then(
                 function (status) {
                     res.sendStatus(200);
                 },
                 function(error){
-                  res.sendStatus(400)
-                      .send(error);
+                  res.sendStatus(400).send(error);
                 }
             )
     }
+
 };
 
 

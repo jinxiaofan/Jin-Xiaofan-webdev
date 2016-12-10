@@ -4,7 +4,6 @@
         .directive("sortable", sortable);
 
     function sortable() {
-
         function linker(scope, element, attributes) {
             var start = -1;
             var end = -1;
@@ -31,8 +30,9 @@
             var vm = this;
             vm.sort = sort;
 
+
             function sort(start, end){
-                WidgetService.sort(start, end)
+                WidgetService.sort(start, end);
             }
         }
     }

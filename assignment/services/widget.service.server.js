@@ -2,23 +2,6 @@ module.exports = function(app, model) {
     var multer = require('multer'); // npm install multer --save
     var upload = multer({dest: __dirname + '/../../public/assignment/uploads'});
 
-    var widgets = [
-        {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
-        {_id: "234", widgetType: "HEADER", pageId: "321", size: 4, text: "Lorem ipsum"},
-        {
-            _id: "345", widgetType: "IMAGE", pageId: "321", width: "100%",
-            url: "http://lorempixel.com/400/200/"
-        },
-        {_id: "456", widgetType: "HTML", pageId: "321", text: "<p>Lorem ipsum</p>"},
-        {_id: "567", widgetType: "HEADER", pageId: "321", size: 4, text: "Lorem ipsum"},
-        {
-            _id: "678", widgetType: "YOUTUBE", pageId: "321", width: "100%",
-            url: "https://youtu.be/AM2Ivdi9c4E"
-        },
-        {_id: "789", widgetType: "HTML", pageId: "321", text: "<p>Lorem ipsum</p>"}
-    ];
-
-
     app.post('/api/page/:pid/widget', createWidget);
     app.get('/api/page/:pid/widget', findWidgetsByPageId);
     app.get('/api/widget/:wgid', findWidgetById);
@@ -27,23 +10,22 @@ module.exports = function(app, model) {
     app.post("/api/upload", upload.single('myFile'), uploadImage);
     app.put('/api/page/:pid/widget', sortWidget);
 
+
+
     function createWidget(req, res) {
         var widget = req.body;
-        model
-            .widgetModel
-            .createWidget(widget)
-            .then(
-                function(widget){
-                    res.json(widget);
-                })
+        model.widgetModel.createWidget(widget.pageId, widget)
+            .then(function (page) {
+                var widgetId = page.widgets[page.widgets.length - 1];
+                res.send(widgetId);
+            })
     }
+
 
 
     function findWidgetsByPageId(req, res) {
         var pid = req.params.pid;
-        model
-            .widgetModel
-            .findWidgetsByPageId(pid)
+        model.widgetModel.findWidgetsByPageId(pid)
             .then(
                 function(widgets){
                     if(widgets){
@@ -51,16 +33,18 @@ module.exports = function(app, model) {
                     } else {
                         res.json([]);
                     }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
 
+
     function findWidgetById(req, res) {
         var wgid = req.params.wgid;
-        model
-            .widgetModel
-            .findWidgetById(wgid)
+        model.widgetModel.findWidgetById(wgid)
             .then(
                 function(widget){
                     if(widget){
@@ -68,33 +52,38 @@ module.exports = function(app, model) {
                     } else {
                         res.send('0')
                     }
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
                 }
             )
     }
-
 
     function updateWidget(req, res) {
         var widget = req.body;
         var wgid = req.params.wgid;
-        model
-            .widgetModel
-            .updateWidget(wgid, widget)
+        model.widgetModel.updateWidget(wgid, widget)
             .then(
                 function(status){
-                    res.send(200);
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
 
+
     function deleteWidget(req, res) {
         var wgid = req.params.wgid;
-        model
-            .widgetModel
-            .deleteWidget(wgid)
+        model.widgetModel.deleteWidget(wgid)
             .then(
                 function (status) {
-                    res.send(200);
+                    res.sendStatus(200);
+                },
+                function(error){
+                    res.sendStatus(400).send(error);
                 }
             )
     }
@@ -105,15 +94,9 @@ module.exports = function(app, model) {
         var pageId = req.params.pid;
         var start = req.query.start;
         var end = req.query.end;
-        model
-            .widgetModel
-            .sortWidget(pageId, start, end)
-            .then(
-                function (status) {
-                    res.send(200);
-                }
-            )
+                    res.sendStatus(200);
     }
+
 
 
     function uploadImage(req, res) {
@@ -130,16 +113,20 @@ module.exports = function(app, model) {
         var destination   = myFile.destination;  // folder where file is saved to
         var size          = myFile.size;
 
+
         var newUrl = '/assignment/uploads/'+filename;
         var updateOne = {"name": filename, "widgetType": "IMAGE", "text": req.body.text, "url": newUrl, "width": req.body.width, "pageId" : pid};
-        model
-            .widgetModel
+        model.widgetModel
             .updateWidget(wgid, updateOne)
             .then(
                 function(status){
-                    var url = '/assignment/index.html#/user/' + uid
-                        + '/website/' + wid + '/page/' + pid + '/widget/';
+                    console.log(newUrl);
+                    var url = '/assignment/index.html#/user/' + uid + '/website/' + wid + '/page/' + pid + '/widget/';
                     res.redirect(url);
-                })
+                },
+                function(error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
     }
 };

@@ -4,6 +4,7 @@
         .factory("WidgetService", WidgetService);
 
     function WidgetService($http) {
+
         var api = {
             createWidget: createWidget,
             findWidgetsByPageId: findWidgetsByPageId,
@@ -16,14 +17,8 @@
         return api;
 
 
-        function sortWidget(pid, start, end) {
-            var url = "/api/page/" + pid + "/widget?start=" + start + "&end=" + end;
-            return $http.put(url);
-        }
-
-
         function createWidget(widget) {
-            var url = "/api/page/" + widget.pageId +"/widget";
+            var url = "/api/page/" + pageId +"/widget";
             return $http.post(url, widget)
         }
 
@@ -52,9 +47,14 @@
         }
 
 
-        function getTypes(){
-            return Types;
+
+        function sortWidget(pid, start, end) {
+            var url = "/api/page/" + pid + "/widget?start=" + start + "&end=" + end;
+            return $http.put(url);
         }
+
+
     }
+
 })();
 

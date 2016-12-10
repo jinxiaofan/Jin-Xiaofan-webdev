@@ -1,8 +1,8 @@
 module.exports = function() {
+    var model = {};
     var mongoose = require("mongoose");
     var WidgetSchema = require("./widget.schema.server")();
     var WidgetModel = mongoose.model("WidgetModel", WidgetSchema);
-
 
     var api = {
         createWidget : createWidget,
@@ -10,19 +10,25 @@ module.exports = function() {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        sortWidget: sortWidget
+        setModel: setModel
     };
     return api;
 
-
-
-    function sortWidget(pageId, start, end) {
-        return WidgetModel.splice(end, 0, WidgetModel.splice(start, 1)[0]);
+    function setModel(_model) {
+        model = _model;
     }
 
-
-    function createWidget(widget){
-        return WidgetModel.create(widget);
+    function createWidget(pageId, widget) {
+        return WidgetModel.create(widget)
+            .then(function (widget) {
+                return model.pageModel.findPageById(pageId)
+                    .then(function (page) {
+                        page.widgets.push(widget);
+                        widget.pageId = page._id;
+                        widget.save();
+                        return page.save();
+                    })
+            })
     }
 
 
@@ -31,7 +37,6 @@ module.exports = function() {
             "pageId" : pageId
         })
     }
-
 
     function findWidgetById(wid) {
         return WidgetModel.findById(wid);
@@ -48,14 +53,11 @@ module.exports = function() {
         if(widget.deletable == null){
             widget.deletable = true;
         }
-
         if(widget.formatted == null){
             widget.formatted = true;
         }
 
-        return WidgetModel.update({
-            _id: widgetId
-        },
+        return WidgetModel.update({_id: widgetId},
         {
             "pageId": widget.pageId,
             "widgetType": widget.widgetType,
@@ -82,4 +84,11 @@ module.exports = function() {
         return WidgetModel
             .remove({_id: widgetId});
     }
+
+
+
+    function sortWidget(pageId, start, end) {
+        return WidgetModel.splice(end, 0, WidgetModel.splice(start, 1)[0]);
+    }
+
 };

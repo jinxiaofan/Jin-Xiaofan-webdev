@@ -36,9 +36,11 @@
             return $sce.trustAsHtml(html);
         }
 
+
         function checkSafeImage(url) {
             return $sce.trustAsResourceUrl(url);
         }
+
 
         function checkSafeYoutubeUrl(url) {
             var parts = url.split('/');
@@ -46,8 +48,9 @@
             url = "https://www.youtube.com/embed/"+id;
             return $sce.trustAsResourceUrl(url);
         }
-
     }
+
+
 
     function ChooseWidgetController($location, $routeParams, WidgetService) {
         var vm = this;
@@ -56,7 +59,7 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
-        vm.createWidget = createWidget;
+
         vm.widget = {
             "widgetType": null,
             "pageId": null,
@@ -66,6 +69,7 @@
             "deletable": false,
             "formatted": false
         };
+        vm.createWidget = createWidget;
 
 
         function createWidget(widgetType) {
@@ -85,17 +89,14 @@
 
     function EditWidgetController($location, $routeParams, WidgetService){
         var vm = this;
-
         vm.uid = $routeParams["uid"];
         vm.pid = $routeParams["pid"];
         vm.wid = $routeParams["wid"];
         vm.wgid = $routeParams["wgid"];
-
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
 
         function init(){
-
             WidgetService.findWidgetById(vm.wgid)
                 .success(function(widget){
                     vm.widget = widget;
@@ -108,22 +109,23 @@
 
 
         function updateWidget(){
-            WidgetService.updateWidget(vm.wgid, vm.widget)
-                .success(function(){
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
-                })
-                .error(function(){
+            if (typeof(vm.widget.name) === "undefined" || vm.widget.name === ""){
+                vm.error = "Notice! Name needed"
+            } else {
+                WidgetService.updateWidget(vm.wgid, vm.widget)
+                    .success(function () {
+                        $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                    })
+                    .error(function () {
 
-                });
+                    });
+            }
         }
 
         function deleteWidget(){
             WidgetService.deleteWidget(vm.wgid)
                 .success(function(){
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
-                })
-                .error(function(){
-
                 });
         }
     }
@@ -157,7 +159,9 @@
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
             var widget = {"_id": vm.wgid, widgetType: "Image", "pageId": vm.pid, "width": "100%", "url": url};
             WidgetService.UpdateWidget(vm.wgid, widget)
-                .then();
+                .success(function(){
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                })
         }
     }
 })();

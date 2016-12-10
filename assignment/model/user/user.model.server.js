@@ -9,9 +9,15 @@ module.exports = function() {
         findUserByUserName: findUserByUserName,
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        setModel:setModel
     };
     return api;
+
+
+    function setModel(_model) {
+        model = _model;
+    }
 
 
     function createUser(user){
@@ -23,18 +29,15 @@ module.exports = function() {
         return UserModel.findById(userId);
     }
 
-
     function findUserByUserName(userName){
-        return UserModel.find({
+        return UserModel.findOne({
             username : userName
         });
     }
 
-
     function updateUser(userId, user){
         return UserModel
-            .update(
-                {_id: userId},
+            .update({_id: userId},
                 {
                     username : user.username,
                     password : user.password,
@@ -49,8 +52,9 @@ module.exports = function() {
     }
 
 
+
     function findUserByCredentials(username, password){
-       return UserModel.find({
+       return UserModel.findOne({
             username: username,
             password: password
         });
@@ -60,5 +64,6 @@ module.exports = function() {
     function deleteUser (userId) {
         return UserModel
             .remove({_id: userId});
+
     }
 };
