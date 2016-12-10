@@ -73,6 +73,8 @@
                 redirectTo : "/login"
             });
 
+
+
         function checkLogin($q, UserService ,$location) {
             var deferred = $q.defer();
             UserService.checkLogin()
