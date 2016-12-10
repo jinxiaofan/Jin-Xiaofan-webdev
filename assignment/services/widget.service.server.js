@@ -34,16 +34,10 @@ module.exports = function(app, model) {
             .createWidget(widget)
             .then(
                 function(widget){
-
                     res.json(widget);
-                },
-                function(error){
-                    res.sendStatus(400)
-                        .send(error);
-                }
-
-            )
+                })
     }
+
 
     function findWidgetsByPageId(req, res) {
         var pid = req.params.pid;
@@ -57,10 +51,6 @@ module.exports = function(app, model) {
                     } else {
                         res.json([]);
                     }
-                },
-                function (error) {
-                    res.sendStatus(400)
-                        .send(error);
                 }
             )
     }
@@ -78,10 +68,6 @@ module.exports = function(app, model) {
                     } else {
                         res.send('0')
                     }
-                },
-                function (error) {
-                    res.sendStatus(400)
-                        .send(error);
                 }
             )
     }
@@ -95,11 +81,7 @@ module.exports = function(app, model) {
             .updateWidget(wgid, widget)
             .then(
                 function(status){
-                    res.sendStatus(200);
-                },
-                function(error) {
-                    res.sendStatus(400)
-                        .send(error);
+                    res.send(200);
                 }
             )
     }
@@ -112,10 +94,7 @@ module.exports = function(app, model) {
             .deleteWidget(wgid)
             .then(
                 function (status) {
-                    res.sendStatus(200);
-                },
-                function(error){
-                    res.sendStatus(400).send(error);
+                    res.send(200);
                 }
             )
     }
@@ -131,11 +110,7 @@ module.exports = function(app, model) {
             .sortWidget(pageId, start, end)
             .then(
                 function (status) {
-                    res.sendStatus(200);
-                },
-                function(error){
-                    res.sendStatus(400)
-                        .send(error);
+                    res.send(200);
                 }
             )
     }
@@ -165,11 +140,6 @@ module.exports = function(app, model) {
                     var url = '/assignment/index.html#/user/' + uid
                         + '/website/' + wid + '/page/' + pid + '/widget/';
                     res.redirect(url);
-                },
-                function(error) {
-                    res.sendStatus(400)
-                        .send(error);
-                }
-            )
+                })
     }
 };

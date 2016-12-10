@@ -55,23 +55,26 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.newWidget = newWidget;
+        vm.wgid = $routeParams.wgid;
+        vm.createWidget = createWidget;
+        vm.widget = {
+            "type": null,
+            "_page": null,
+            "rows": 0,
+            "size": 0,
+            "text": null,
+            "deletable": false,
+            "formatted": false
+        };
 
 
-        function init() {
-            vm.Types = WidgetService.getTypes();
-        }
-        init();
-
-
-        function newWidget(widgetType) {
+        function createWidget(widgetType) {
             vm.widget.widgetType = widgetType;
-            vm.widget._id = (new Date()).getTime();
             vm.widget.pageId = vm.pid;
 
-            WidgetService.newWidget(vm.widget)
-                .success(function () {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + vm.widget._id);
+            WidgetService.createWidget(vm.widget)
+                .success(function (widgetId) {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widgetId);
                 })
                 .error(function () {
 
