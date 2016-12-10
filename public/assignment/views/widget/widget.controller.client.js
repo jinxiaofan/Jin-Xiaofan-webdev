@@ -58,8 +58,8 @@
         vm.wgid = $routeParams.wgid;
         vm.createWidget = createWidget;
         vm.widget = {
-            "type": null,
-            "_page": null,
+            "widgetType": null,
+            "pageId": null,
             "rows": 0,
             "size": 0,
             "text": null,
