@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MyMusic">
-<head>
-    <link href="../assignment/css/style.css" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="app.js"></script>
-    <meta charset="UTF-8">
-    <title>Cool_Wo_MusicPlayer</title>
-</head>
+<html lang="en" ng-app="NutritionPlaner">
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.25, user-scalable = no">
+<title>Project Home Page</title>
+<link href="../css/jquery-ui.css" rel="stylesheet"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+
+
+<script src="js/textAngular-sanitize.min.js"></script>
+<script src="js/textAngular-rangy.min.js"></script>
+<script src="js/textAngular.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.1/textAngular.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"></html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<link href="css/projectsStyle.css" rel="stylesheet"/>
+<link href="css/recipeWidgets.min.css" rel="stylesheet"/>
+<link href="css/home.css" rel="stylesheet"/>
+
+<script src="app.js"></script>
+<script src="config.js"></script>
+
+
+<script src="views/user/login.controller.client.js"></script>
+<script src="views/homepage.controller.client.js"></script>
+<script src="views/user/profile.controller.client.js"></script>
+<script src="views/user/register.controller.client.js"></script>
+<script src="views/food/food-search.controller.client.js"></script>
+<script src="views/food/food-detail.controller.client.js"></script>
+<script src="views/help/help.controller.client.js"></script>
+<script src="service/user.service.client.js"></script>
+<script src="service/spoonacular.service.client.js"></script>
+
+
 <body>
-<div class="container-fluid" ng-controller="MovieSearchController as model">
-    <h1>COOl WO</h1>
-
-    <div class="input-group">
-        <input ng-model="title" type="text" class="form-control" placeholder="Search for...">
-        <span class="input-group-btn">
-        <button ng-click="model.searchMovieByTitle(title)" class="btn btn-default" type="button">Go!</button>
-      </span>
-    </div>
-    <table>
-        <thead>
-        <tr>
-            <th>Song</th>
-            <th>Singer</th>
-            <th>Album</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="movie in model.movies">
-            <td>{{movie.Title}}</td>
-            <td>{{movie.Year}}</td>
-            <td><img ng-src="{{movie.Poster}}"/></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
+<div ng-view></div>
 </body>
 </html>

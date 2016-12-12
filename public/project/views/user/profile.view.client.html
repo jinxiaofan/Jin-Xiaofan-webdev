@@ -1,67 +1,125 @@
-<nav class="navbar navbar-fixed-top navbar-light bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand col-m-6 pull-right white"
-           ng-click="model.updateUser()">
-            <span class=" glyphicon glyphicon-ok"></span></a>
+<div id="nav-upnav" aria-hidden="true" class="navbar-fixed-top">
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top nav-my">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand white" href="#">Profile</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/home">FoodU</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <a ng-show="!model.user" href="#/login" class="btn btn-success">Sign in</a>
+                </div>
+                <div class="form-group">
+                    <a ng-show="!model.user" href="#/register" class="btn btn-primary">Sign up</a>
+                </div>
+                <div class="form-group">
+                    <label id="welcome" ng-show="model.user">Welcome! </label>
+                    <div ng-show="model.user" class="btn-group">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{model.user.username}} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/user/{{model.uid}}">My profile</a></li>
+                            <!--<li><a href="#/user/{{model.uid}}/mealPlan">My meal plan</a></li>-->
+                            <li><a href="#/help">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <
+                <div class="form-group">
+                    <a class="sign-out" ng-show="model.user" ng-click="model.logout()">Sign out</a>
+                </div>
+
+            </form>
         </div>
     </div>
-
 </nav>
 
 
-<div class="container">
-    <br>
-    <br>
+<div class="container content">
     <form>
+        <div class="profile-picture">
+        <img ng-click="model.showModal()" ng-show="model.user.avatar" ng-src="{{model.user.avatar}}" class="img-thumbnail avatar img-responsive" width="20%">
+        <img ng-click="model.showModal()" ng-show="!model.user.avatar" src="../../../images/img_avatar.png" class="img-thumbnail avatar img-responsive" width="20%">
+            click picture to change avatar
+        </div>
+
+        <div ng-show="model.success" class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            {{model.success}}
+        </div>
         <div class="form-group">
             <label for="username">Username</label>
-            <input ng-model = "model.user.username"
-                   type="text"
-                   class="form-control"
-                   id="username"
-                   placeholder="Username">
+            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username"
+                   disabled>
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input ng-model="model.user.email"
-                   type="email"
-                   class="form-control"
-                   id="email"
+            <input ng-model="model.user.email" type="email" class="form-control" id="email"
                    placeholder="alice@wonderland.com">
         </div>
         <div class="form-group">
             <label for="first-name">First Name</label>
-            <input ng-model = "model.user.firstName"
-                   type="text"
-                   class="form-control"
-                   id="first-name"
-                   placeholder="Alice">
+            <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="Alice">
         </div>
         <div class="form-group">
             <label for="last-name">Last Name</label>
-            <input ng-model = "model.user.lastName"
-                   type="text"
-                   class="form-control"
-                   id="last-name"
+            <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name"
                    placeholder="Wonderland">
         </div>
     </form>
 
-    <a class="btn btn-primary btn-block"
-       href="#/user/{{model.user._id}}/website">Websites</a>
-    <a class="btn btn-danger  btn-block"
-       href="#login">Logout</a>
-    <a class="btn btn-warning  btn-block"
-       ng-click = "model.unregisterUser()">Unregister</a>
+    <a class="btn btn-success  btn-block"
+       ng-click="model.updateUser(model.user)">Save profile</a>
+    <br>
+    <a ng-click="model.deleteUser(model.user)">Unregister me</a>
+
+    <h3>Follows</h3>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="follow in model.user.follows">
+            <div class="card">
+                <img ng-show="follow.avatar" ng-src="{{follow.avatar}}" alt="Avatar" width="100%">
+                <img ng-show="!follow.avatar" src="../../../images/img_avatar.png" width="100%">
+                <div class="container">
+                    <p><b>{{follow.username}}</b>
+                        <a ng-click="model.unFollow(follow)">
+                            <i class="fa fa-check" aria-hidden="true"></i>followed
+                        </a>
+                    </p>
+                    <p>{{follow.firstName}} {{follow.lastName}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<nav class="navbar navbar-fixed-bottom bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand pull-right white" href="#/user/{{model.user._id}}">
-            <span class="glyphicon glyphicon-user"></span>
-        </a>
+<div class="modal">
+    <div class="modal-content">
+        <span ng-click="model.hideModal()" class="close">x</span>
+        <h3>change photo</h3>
+        <form action="/api/ft/upload"  method="post" enctype="multipart/form-data">
+            <input  name="avatarFile"   type="file" class="form-control"/>
+            <input  name="uid" value="{{model.uid}}"   style="display: none"/>
+            <button type="submit"   class="btn btn-block btn-success">Upload Image</button>
+        </form>
+    </div>
+</div>
 
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+    <div class="container">
+        <a href="../../../contact.html">
+            <h5>Connect me</h5>
+        </a>
+        <span class="pull-right">Copyright @Xiaofan Jin All Rights Reserved</span>
     </div>
 </nav>

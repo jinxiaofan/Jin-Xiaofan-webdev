@@ -52,9 +52,6 @@
             var url = "/api/page/" + pid + "/widget?start=" + start + "&end=" + end;
             return $http.put(url);
         }
-
-
     }
-
 })();
 

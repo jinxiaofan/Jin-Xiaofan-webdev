@@ -1,23 +1,28 @@
 <div class="container">
-    <div ng-show = "model.error" class="alert alert-danger" role="alert">
-        {{model.error}}
-    </div>
+    <div class="form-signin">
+    <form name="form" novalidate>
+    <h1 class="form-signin-heading">Register</h1>
+        <div ng-show="model.error" class="alert alert-danger" role="alert" >{{model.error}}</div>
+    <input ng-model="username" required name="username" type="text" placeholder="username" class="form-control">
+        <div class="errorField" ng-show="form.username.$touched && form.username.$invalid">username is required</div>
+    <input ng-model="password" required name="password" type="password" placeholder="password" class="form-control">
+        <div class="errorField" ng-show="form.password.$touched && form.password.$invalid">password is required</div>
+    <input ng-model="verifyPassword" required name="password2" type="password" placeholder="verify password" class="form-control">
+        <div class="errorField" ng-show="form.password2.$touched && form.password2.$invalid || form.password.$touched && form.password.$modelValue != form.password2.$modelValue">
+            please verify your password
+        </div>
+    <a ng-click="model.register(username, password, verifyPassword)" class="btn btn-primary btn-block">Register</a>
+    <a href="#/login" class="btn btn-danger btn-block">Cancel</a>
+    </form>
 
-    <h1>Register</h1>
-    <input type="text"
-           ng-model= "username"
-           class="form-control"
-           placeholder="username"/>
-    <input type="password"
-           ng-model= "password"
-           class="form-control"
-           placeholder="password"/>
-    <input type="password"
-           ng-model= "varyPassword"
-           class="form-control"
-           placeholder="very password"/>
-    <a ng-click = "model.register(username, password, varyPassword)"
-       class="btn btn-primary btn-block">Register</a>
-    <a class="btn btn-danger  btn-block"
-       href="#/login">Cancel</a>
+    </div>
 </div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+    <div class="container">
+        <a href="../../../contact.html">
+            <h5>Connect me</h5>
+        </a>
+        <span class="pull-right">Copyright @Xiaofan Jin All Rights Reserved</span>
+    </div>
+</nav>
