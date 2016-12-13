@@ -2,23 +2,29 @@
     angular
         .module("NutritionPlaner")
         .controller("ProfileController", ProfileController);
-    
-    function ProfileController($routeParams, UserService, $location) {
+
+    function ProfileController($location, $routeParams, UserService) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        var userId = $routeParams.uid;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
-        vm.unFollow = unFollow;
         vm.logout = logout;
+        vm.unFollow = unFollow;
 
         function init() {
-            UserService.findUserById(vm.uid)
-                .then(function (response) {
-                    vm.user = response.data;
+            var promise = UserService.findUserById(userId);
+            promise
+                .success(function (user) {
+                    if (user != '0') {
+                        vm.user = user;
+                    }else{
+                        console.log("No such a user");
+                    }
                 });
         }
         init();
-        
+
+
         function unFollow(unfollowUser) {
             UserService
                 .unFollow(vm.uid, unfollowUser)
@@ -26,41 +32,36 @@
                         init();
                     },
                     function (error) {
-                        vm.error = "Cannot follow user.";
+                        vm.error = "Error, cannot follow user.";
                     });
-        }
-        
-        function deleteUser(user) {
-            UserService
-                .deleteUser(user)
-                .then(function (response) {
-                    $location.url("/home");
-                },
-                function (error) {
-                    vm.error = "Unable to unregister."
-                });
-        }
-
-        function updateUser(newUser) {
-            UserService
-                .updateUser(vm.uid, newUser)
-                .then(function (response) {
-                    vm.success = "Your profile was saved."
-                },
-                function (error) {
-                    vm.error = "Unable to update profile."
-                });
         }
 
         function logout() {
-            UserService
-                .logout()
-                .then(function (response) {
-                        $location.url("/home");
-                    },
-                    function (error) {
-                        $location.url("/home");
-                    })
+            UserService.logout()
+                .success(function(){
+                    $location.url("/login");
+                });
+        }
+
+        function updateUser(){
+            UserService.updateUser(vm.user)
+                .success(function(){
+                    $location.url("/login");
+                })
+                .error(function(){
+
+                });
+
+        }
+
+        function deleteUser(){
+            UserService.deleteUser(vm.user._id)
+                .success(function(){
+                    $location.url("/login");
+                })
+                .error(function(){
+
+                });
         }
     }
 })();

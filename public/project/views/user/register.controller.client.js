@@ -2,60 +2,39 @@
     angular
         .module("NutritionPlaner")
         .controller("RegisterController", RegisterController);
-    
-    function RegisterController($location, UserService) {
 
+    function RegisterController($location, UserService) {
         var vm = this;
-        vm.createUser = createUser;
 
         vm.register = register;
-
-        function register(username, password, verifyPassword) {
-            if (!username || !password || !verifyPassword) {
-                vm.error = "Empty or incorrect fields";
-                return;
-            }            if (password === verifyPassword) {
-                var newUser = {
-                    username: username,
-                    password: password
-                };
-
-                UserService
-                    .register(newUser)
-                    .then(function (response) {
-                            var user = response.data;
-                            $location.url("/user/" + user._id);
-                        },
-                        function (error) {
-                            vm.error = error.data;
-                        })
+        function register(username, password, varyPassword){
+            if ((typeof(username) === "undefined" || username === "") ||
+                (typeof(password) === "undefined" || password === "") ||
+                (typeof(varyPassword) === "undefined" || varyPassword === "")) {
+                vm.error = "Notice! Username, Password, Varypassword needed"
             } else {
-                vm.error = "Please verify your password."
-            }
-        }
-        
-        function createUser(username, password, verifyPassword) {
-            if (!username || !password || !verifyPassword) {
-                vm.error = "Empty or incorrect fields";
-                return;
-            }
-            if (password === verifyPassword) {
-                var newUser = {
-                    username: username,
-                    password: password
-                };
-                
-                UserService
-                    .createUser(newUser)
-                    .then(function (response) {
-                        var user = response.data;
-                        $location.url("/user/" + user._id);
-                    },
-                    function (error) {
-                        vm.error = "Unable to register."
+                UserService.findUserByUserName(username)
+                    .success(function (user) {
+                        if (user == 0) {
+                            if (password === varyPassword) {
+                                UserService
+                                    .createUser(username, password)
+                                    .success(function (user) {
+                                        $location.url("/user/" + user._id);
+                                    })
+                                    .error(function () {
+
+                                    })
+                            } else {
+                                vm.error = "password is different with vary password";
+                            }
+                        } else {
+                            vm.error = "Notice! This username has been used";
+                        }
                     })
-            } else {
-                vm.error = "Please verify your password."
+                    .error(function () {
+
+                    })
             }
         }
     }

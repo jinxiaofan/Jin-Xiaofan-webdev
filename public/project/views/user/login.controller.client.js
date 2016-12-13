@@ -18,12 +18,11 @@
                         if (user === '0') {
                             vm.error = "User not found";
                         } else {
-                            console.log("userId: " + user._id);
-
                             $location.url("/user/" + user._id);
                         }
                     });
             }
         }
     }
+
 })();

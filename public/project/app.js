@@ -1,3 +1,4 @@
 (function () {
-    angular.module("NutritionPlaner", ["ngRoute"]);
+    angular
+        .module("NutritionPlaner", ["ngRoute", "textAngular"]);
 })();

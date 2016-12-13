@@ -3,17 +3,17 @@
             <form name="form" novalidate>
                 <h1 class="form-signin-heading">Login</h1>
                 <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
-                <input ng-model="username" required name="username" type="text" placeholder="username"
+                <input ng-model="model.username" required name="username" type="text" placeholder="username"
                        class="form-control">
                 <div class="errorField" ng-show="form.username.$touched && form.username.$invalid">username is
                     required
                 </div>
-                <input ng-model="password" required name="password" type="password" placeholder="password"
+                <input ng-model="model.password" required name="password" type="password" placeholder="password"
                        class="form-control">
                 <div class="errorField" ng-show="form.password.$touched && form.password.$invalid">password is
                     required
                 </div>
-                <a ng-click="model.login(username, password)" class="btn btn-primary btn-block">Login</a>
+                <a ng-click="model.login(model.username, model.password)" class="btn btn-primary btn-block">Login</a>
                 <a class="btn btn-success btn-block" href="#/register">Register</a>
             </form>
         </div>

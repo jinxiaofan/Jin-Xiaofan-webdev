@@ -1,13 +1,12 @@
-module.exports = function () {
-    console.log("hello from model");
+module.exports = function() {
     var mongoose = require('mongoose');
     mongoose.Promise = global.Promise;
 
     var userModel = require("./user/user.model.server")();
 
-    var models = {
+    var model = {
         userModel: userModel
     };
-    userModel.setModel(models);
-    return models;
+    userModel.setModel(model);
+    return model;
 };
