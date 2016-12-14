@@ -1,0 +1,134 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/home">NutritionPlanner</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ng-show="!model.user" href="#/register">Sign up
+                        <span class="glyphicon glyphicon-log-in"></span></a></li>
+                    <li><a ng-show="!model.user" href="#/login">Sign in
+                        <span class="glyphicon glyphicon-log-in"></span></a></li>
+                </ul>
+                <div class="form-group">
+                    <label id="welcome" ng-show="model.user" >Welcome! </label>
+                    <div ng-show="model.user" class="btn-group">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{model.user.username}} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/user/{{model.user._id}}">My profile</a></li>
+                            <li><a href="#/help">Help</a></li>
+                        </ul>
+                    </div>
+                <a class="sign-out" ng-show="model.user" ng-click="model.logout()">Sign out</a>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid content">
+    <form class="form-inline">
+    <div class="form-group">
+        <select ng-model="type" class="form-control">
+            <option value="product" selected>grocery food</option>
+            <option value="recipe">recipe food</option>
+        </select>
+    </div>
+        <div class="form-group">
+    <div class="input-group">
+
+        <input ng-model="searchText" type="text" class="form-control" placeholder="Search for food name...">
+      <span class="input-group-btn">
+        <button ng-click="model.searchProducts(0, searchText, 0, type)" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      </span>
+    </div>
+        </div>
+    </form>
+
+    <nav>
+        <ul class="pager">
+            <li><a ng-show="model.offset>0" ng-click="model.searchProducts(model.offset-30, searchText, 1, type)">Previous</a></li>
+            <li><a ng-show="model.offset<model.totalProducts" ng-click="model.searchProducts(model.offset+30, searchText, 1, type)">Next</a></li>
+        </ul>
+    </nav>
+
+    <div class="row search-result">
+    <div class="col-xs-6 col-md-3" ng-repeat="product in model.productList">
+        <div class="thumbnail">
+        <img ng-click=""
+             ng-src="{{product.image}}"
+             width="80%"/>
+        <div class="caption">
+            <p>{{product.title}}</p>
+        </div>
+            <div >
+                <a ng-click="model.jumpToProduct(product.id, type)">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    View Product</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal">
+    <div class="modal-content">
+        <span ng-click="model.hideSearch()" class="close">x</span>
+            <ul class="pager">
+            </ul>
+            <div class="thumbnail">
+                <img ng-src="{{model.productDetail.images[0]}}" width="50%">
+                <div class="caption">
+                    <h2>{{model.productDetail.title}}</h2>
+                    <span ng-show="model.productDetail.vegetarian"><img src="../../../images/vegetarian.jpg"> vegetarian</span>
+                    <span ng-show="model.productDetail.veryHealthy"><img src="../../../images/protein.jpg"> healthy</span>
+                    <span ng-show="model.productDetail.glutenFree"><img src="../../../images/gluten-free.jpg"> gluten-free</span>
+                    <span ng-show="model.productDetail.dairyFree"><img src="../../../images/dairy-free.jpg"> dairy-free</span>
+                    <div class="ingredient">
+                        <h3>Ingredients</h3>
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-4" ng-repeat="ingredient in model.productDetail.extendedIngredients">
+                                <img ng-src="{{ingredient.image}}" width="40px" height="40px">
+                                {{ingredient.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nutrition">
+                        <h3 id="anchorNutrition">Nutritional Information</h3>
+                        <div class="spoonacular-caption">Quickview</div>
+                        <div ng-repeat="nutrition in model.productDetail.nutrition.nutrients">
+                        <div class="spoonacular-nutrient-name">{{nutrition.title}}</div>
+                        <div class="spoonacular-nutrient-value">{{nutrition.amount}} {{nutrition.unit}}</div>
+                            <span title="limit this" ng-show="nutrition.title=='Calories' || nutrition.title=='Fat'
+                            || nutrition.title=='Saturated Fat' || nutrition.title=='Carbohydrates' || nutrition.title=='Sodium'
+                            || nutrition.title=='Sugar' || nutrition.title=='Cholesterol'">
+                                <i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                            <br>
+                        </div>
+                    </div>
+                    <div ng-bind-html="model.getSafeHtml(model.productDetail.nutrition_widget)"></div>
+                </div>
+            </div>
+            <br>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+    <div class="container">
+        <a href="../../../contact.html">
+            <h5>Connect me</h5>
+        </a>
+        <span class="pull-right">Copyright @Xiaofan Jin All Rights Reserved</span>
+    </div>
+</nav>

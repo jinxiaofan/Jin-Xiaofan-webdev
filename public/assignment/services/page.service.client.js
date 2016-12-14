@@ -13,8 +13,8 @@
             updatePage : updatePage,
             deletePage : deletePage
         };
-        return api;
 
+        return api;
 
 
         function createPage(websiteId, page) {
@@ -22,24 +22,21 @@
             return $http.post(url, page)
         }
 
-
         function findPageByWebsiteId(websiteId) {
             var url = "/api/website/" + websiteId +"/page";
             return $http.get(url);
         }
 
-
         function findPageById(pageId) {
             var url = '/api/page/' + pageId;
             return $http.get(url, pageId);
-        }
 
+        }
 
         function updatePage(pageId, page) {
             var url = '/api/page/' + pageId;
             return $http.put(url, page);
         }
-
 
         function deletePage(pageId) {
             var url = '/api/page/' + pageId;

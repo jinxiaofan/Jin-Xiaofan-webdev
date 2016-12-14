@@ -13,15 +13,40 @@
 </nav>
 
 
-<div class = "container chooserContainer">
-    <ul class = "list-group">
-        <button type="button"
-                class = "list-group-item"
-                ng-repeat = "type in model.Types"
-                ng-click = "model.newWidget(type)"
-                >
-            <h5 class = "website-list-style">{{type}}</h5>
-        </button>
+<div id="list" class="container-fluid">
+    <ul class="list-unstyled">
+
+        <li class="blue">
+            <a ng-click="model.createWidget('HEADER')">Header</a>
+        </li>
+
+        <li>
+            <a class="blue">Label</a>
+        </li>
+        <li>
+            <a ng-click="model.createWidget('HTML')" class="blue">HTML</a>
+        </li>
+        <li>
+            <a ng-click="model.createWidget('TEXT')" class="blue">Text Input</a>
+        </li>
+        <li>
+            <a class="blue">Link</a>
+        </li>
+        <li>
+            <a class="blue">Button</a>
+        </li>
+        <li>
+            <a ng-click="model.createWidget('IMAGE')"class="blue">Image</a>
+        </li>
+        <li>
+            <a ng-click="model.createWidget('YOUTUBE')" class="blue">YouTube</a>
+        </li>
+        <li>
+            <a class="blue">Date Table</a>
+        </li>
+        <li>
+            <a class="blue">Repeater</a>
+        </li>
     </ul>
 </div>
 

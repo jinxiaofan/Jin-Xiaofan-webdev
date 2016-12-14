@@ -1,15 +1,94 @@
 module.exports = function() {
+    var model = {};
     var mongoose = require("mongoose");
     var WidgetSchema = require("./widget.schema.server")();
     var WidgetModel = mongoose.model("WidgetModel", WidgetSchema);
 
     var api = {
-        createWidget : createWidget
+        createWidget : createWidget,
+        findWidgetsByPageId: findWidgetsByPageId,
+        findWidgetById: findWidgetById,
+        updateWidget: updateWidget,
+        deleteWidget: deleteWidget,
+        setModel: setModel
     };
     return api;
 
-
-    function createWidget(widget){
-        WidgetModel.create(widget);
+    function setModel(_model) {
+        model = _model;
     }
+
+    function createWidget(pageId, widget) {
+        return WidgetModel.create(widget)
+            .then(function (widget) {
+                return model.pageModel.findPageById(pageId)
+                    .then(function (page) {
+                        page.widgets.push(widget);
+                        widget.pageId = page._id;
+                        widget.save();
+                        return page.save();
+                    })
+            })
+    }
+
+
+    function findWidgetsByPageId(pageId) {
+        return WidgetModel.find({
+            "pageId" : pageId
+        })
+    }
+
+    function findWidgetById(wid) {
+        return WidgetModel.findById(wid);
+    }
+
+
+    function updateWidget(widgetId, widget) {
+        if(widget.rows == null){
+           widget.rows = 0;
+        }
+        if(widget.size == null){
+            widget.size = 0;
+        }
+        if(widget.deletable == null){
+            widget.deletable = true;
+        }
+        if(widget.formatted == null){
+            widget.formatted = true;
+        }
+
+        return WidgetModel.update({_id: widgetId},
+        {
+            "pageId": widget.pageId,
+            "widgetType": widget.widgetType,
+            "name": widget.name,
+            "text": widget.text,
+            "placeholder": widget.placeholder,
+            "description": widget.description,
+            "url": widget.url,
+            "width": widget.width,
+            "height": widget.height,
+            "rows": widget.rows,
+            "size": widget.size,
+            "class": widget.class,
+            "icon": widget.icon,
+            "deletable": widget.deletable,
+            "formatted": widget.formatted,
+            "dateCreated": Date.now()
+        });
+    }
+
+
+
+    function deleteWidget(widgetId) {
+        return WidgetModel
+            .remove({_id: widgetId});
+    }
+
+
+
+    function sortWidget(pageId, start, end) {
+        return WidgetModel.splice(end, 0, WidgetModel.splice(start, 1)[0]);
+    }
+
 };

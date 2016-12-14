@@ -1,6 +1,6 @@
-(function() {
+(function () {
     angular
-        .module('WebAppMaker')
+        .module("WebAppMaker")
         .config(Config);
     function Config($routeProvider) {
         $routeProvider
@@ -64,13 +64,34 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
-            .when("/searchImage", {
-                templateUrl: "views/widget/widget-flickr-search.view.client.html",
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/searchImage", {
+                templateUrl: "views/widget/widget-flk-search.view.client.html",
                 controller: "FlickrController",
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo:"/login"
+                redirectTo : "/login"
             });
+
+
+
+        function checkLogin($q, UserService ,$location) {
+            var deferred = $q.defer();
+            UserService.checkLogin()
+                .success(
+                    function (user) {
+                        if (user != '0') {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                            $location.url("/login");
+                        }
+                    })
+                .error(function () {
+
+                });
+            return deferred.promise;
+        }
     }
+
 })();

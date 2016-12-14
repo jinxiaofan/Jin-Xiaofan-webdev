@@ -15,38 +15,54 @@
 </nav>
 
 <div sortable class="container-fluid list-group relative-position zero-right-padding">
+    <div class="container-fluid">
+        <div class="list-group relative RightPadding">
 
+            <div ng-switch="widget.widgetType" class="wam-widget"
+                 ng-repeat="widget in model.widgets">
 
-    <div class = top  ng-switch = "widget.widgetType"
-         ng-repeat = "widget in model.widgets">
-        <a href="#"><h6 class="glyphicon glyphicon-menu-hamburger pull-right"></h6></a>
-        <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}" >
-            <h6 class="glyphicon glyphicon-cog pull-right"></h6></a>
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <div ng-switch="widget.size"  ng-switch-when="HEARDER">
+                    <ng-include src="widget-heading.view.client.html"></ng-include>
+                    <h1 ng-switch-when="1">{{widget.text}}</h1>
+                    <h1 ng-switch-when="2">{{widget.text}}</h1>
+                    <h1 ng-switch-when="3">{{widget.text}}</h1>
+                    <h1 ng-switch-when="4">{{widget.text}}</h1>
+                    <h1 ng-switch-when="5">{{widget.text}}</h1>
+                    <h1 ng-switch-when="6">{{widget.text}}</h1>
+                </div>
 
+                <div ng-switch-when = "YOUTUBE">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class = "embed-responsive-item"
+                                ng-src = "{{model.checkSafeYoutubeUrl(widget.url)}}"
+                                frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
 
-        <div ng-switch = "widget.size" ng-switch-when = "HEADER">
-            <h1 ng-switch-when = 1>{{widget.text}}</h1>
-            <h2 ng-switch-when = 2>{{widget.text}}</h2>
-            <h3 ng-switch-when = 3>{{widget.text}}</h3>
-            <h4 ng-switch-when = 4>{{widget.text}}</h4>
-            <h5 ng-switch-when = 5>{{widget.text}}</h5>
-            <h6 ng-switch-when = 6>{{widget.text}}</h6>
-        </div>
+                <div ng-switch-when = "IMAGE">
+                    <img class = "img-responsive" ng-src = "{{model.checkSafeImage(widget.url)}}" />
+                </div>
 
-        <div ng-switch-when = "YOUTUBE">
-            <!--ng-src : iframe will wait service to get actual url back -->
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class = "embed-responsive-item" ng-src = "{{model.checkSafeYoutubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+                <div ng-switch-when="TEXT">
+                    <div ng-if="widget.formatted" text-angular
+                         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],['indent','outdent'],['html']]">
+                    </div>
+                    <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
+                           placeholder="{{widget.placeholder}}" class="form-control"/>
+                    <textarea ng-if="!widget.formatted && (widget.rows > 1)"
+                              rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                              class="form-control">{{widget.text}}</textarea>
+                </div>
+
+                <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
+                    {{widget.text}}
+                </div>
             </div>
         </div>
-
-        <div ng-switch-when = "IMAGE">
-            <img class = "img-responsive" ng-src = "{{model.checkSafeImage(widget.url)}}" />
-        </div>
-        <!-- pass html to controller and controller will check its safty first -->
-        <div ng-switch-when = "HTML" ng-bind-html = "model.checkSafeHtml(widget.text)">
-        </div>
-
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
