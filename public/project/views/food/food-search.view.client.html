@@ -28,8 +28,6 @@
                             <li><a href="#/help">Help</a></li>
                         </ul>
                     </div>
-                </div>
-                <<div class="form-group">
                 <a class="sign-out" ng-show="model.user" ng-click="model.logout()">Sign out</a>
             </div>
 
@@ -92,10 +90,10 @@
                 <img ng-src="{{model.productDetail.images[0]}}" width="50%">
                 <div class="caption">
                     <h2>{{model.productDetail.title}}</h2>
-                    <span ng-show="model.productDetail.vegetarian"><img src="../../../images/vegetarian.svg"> vegetarian</span>
-                    <span ng-show="model.productDetail.veryHealthy"><img src="../../../images/protein.svg"> healthy</span>
-                    <span ng-show="model.productDetail.glutenFree"><img src="../../../images/gluten-free.svg"> gluten-free</span>
-                    <span ng-show="model.productDetail.dairyFree"><img src="../../../images/dairy-free.svg"> dairy-free</span>
+                    <span ng-show="model.productDetail.vegetarian"><img src="../../../images/vegetarian.jpg"> vegetarian</span>
+                    <span ng-show="model.productDetail.veryHealthy"><img src="../../../images/protein.jpg"> healthy</span>
+                    <span ng-show="model.productDetail.glutenFree"><img src="../../../images/gluten-free.jpg"> gluten-free</span>
+                    <span ng-show="model.productDetail.dairyFree"><img src="../../../images/dairy-free.jpg"> dairy-free</span>
                     <div class="ingredient">
                         <h3>Ingredients</h3>
                         <div class="row">

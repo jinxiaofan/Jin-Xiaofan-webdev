@@ -6,6 +6,9 @@ module.exports = function(app,model) {
     var LocalStrategy = require('passport-local').Strategy;
     var bcrypt = require("bcrypt-nodejs");
 
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({dest: __dirname + '/../../public/uploads'});
+
     app.use(session({
         secret: "this is a secret",
         resave: true,
@@ -24,42 +27,41 @@ module.exports = function(app,model) {
     app.post('/api/checkLogin', checkLogin);
     app.get("/api/loggedIn", loggedIn);
 
-    app.put("/api/user/:userId/follow", addFollow);
-    app.put("/api/user/:userId/unfollow", unFollow);
-
     app.post('/api/user', createUser);
     app.get('/api/user', findUser);
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
+    app.get("/api/user", getUsers);
+
+    app.post("/api/upload", upload.single('avatarFile'), uploadImage);
 
 
-    function addFollow(req, res) {
-        var userId = req.params.uid;
-        var followUser = req.body;
-        model.userModel
-            .addFollow(userId, followUser._id)
-            .then(function (stat) {
-                    res.sendStatus(200);
-                },
-                function (error) {
-                    res.status(400).send(error);
-                });
+    function uploadImage(req, res) {
+
+        var myFile = req.file;
+        var uid = req.body.uid;
+
+        if (myFile) {
+
+            var originalname = myFile.originalname; // file name on user's computer
+            var filename = myFile.filename;     // new file name in upload folder
+            var path = myFile.path;         // full path of uploaded file
+            var destination = myFile.destination;  // folder where file is saved to
+            var size = myFile.size;
+            var mimetype = myFile.mimetype;
+
+            model.userModel
+                .updateAvatar(uid, "/uploads/" + filename)
+                .then(function (stat) {
+                        res.sendStatus(200);
+                    },
+                    function (error) {
+                        res.status(400).send(error);
+                    });
+        }
+        res.redirect("/project/#/user/" + uid);
     }
-
-    function unFollow(req, res) {
-        var userId = req.params.uid;
-        var followUser = req.body;
-        model.userModel
-            .unFollow(userId, followUser._id)
-            .then(function (stat) {
-                    res.sendStatus(200);
-                },
-                function (error) {
-                    res.status(400).send(error);
-                });
-    }
-
 
 
 
@@ -240,4 +242,15 @@ module.exports = function(app,model) {
             )
     }
 
+    function getUsers(req, res) {
+        var username = req.query['username'];
+        var password = req.query['password'];
+        if(username && password) {
+            findUserByCredentials(username, password, req, res);
+        } else if (username) {
+            findUserByUsername(username, res);
+        } else {
+            res.send(users);
+        }
+    }
 };

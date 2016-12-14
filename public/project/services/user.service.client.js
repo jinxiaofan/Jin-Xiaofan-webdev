@@ -13,25 +13,12 @@
             loggedIn: loggedIn,
             updateUser : updateUser,
             deleteUser : deleteUser,
-            addFollow: addFollow,
-            unFollow: unFollow,
             login: login,
             checkLogin: checkLogin,
             logout: logout
 
         };
         return api;
-
-
-        function unFollow(userId, user) {
-            var url = "/api/user/" + userId + "/unfollow";
-            return $http.put(url, user);
-        }
-
-        function addFollow(userId, user) {
-            var url = "/api/user/" + userId + "/follow";
-            return $http.put(url, user);
-        }
 
 
         function loggedIn() {

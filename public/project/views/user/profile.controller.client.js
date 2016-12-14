@@ -6,10 +6,13 @@
     function ProfileController($location, $routeParams, UserService) {
         var vm = this;
         var userId = $routeParams.uid;
+
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
         vm.logout = logout;
-        vm.unFollow = unFollow;
+        vm.showModal = showModal;
+        vm.hideModal = hideModal;
+
 
         function init() {
             var promise = UserService.findUserById(userId);
@@ -24,17 +27,15 @@
         }
         init();
 
-
-        function unFollow(unfollowUser) {
-            UserService
-                .unFollow(vm.uid, unfollowUser)
-                .then(function (response) {
-                        init();
-                    },
-                    function (error) {
-                        vm.error = "Error, cannot follow user.";
-                    });
+        function showModal() {
+            $('.modal').show();
         }
+
+        function hideModal() {
+            $('.modal').hide();
+        }
+
+
 
         function logout() {
             UserService.logout()
