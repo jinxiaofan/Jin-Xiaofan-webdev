@@ -6,33 +6,14 @@
     function UserService($http) {
 
         var api = {
-            createUser : createUser,
+            createUser   : createUser,
             findUserById : findUserById,
-            findUserByUserName : findUserByUserName,
+            findUserByUsername : findUserByUsername,
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
-            deleteUser : deleteUser,
-            login: login,
-            checkLogin: checkLogin,
-            logout: logout
+            deleteUser : deleteUser
         };
         return api;
-
-        function logout() {
-            return $http.post("/api/logout");
-        }
-
-        function checkLogin() {
-            return $http.post("/api/checkLogin");
-        }
-
-        function login(username, password) {
-            var user = {
-                username: username,
-                password: password
-            };
-            return $http.post("/api/login", user);
-        }
 
         function createUser(username,password) {
             var user = {
@@ -53,10 +34,18 @@
             return $http.get(url);
         }
 
-        function findUserByUserName(username) {
-            var url = '/api/user?username='+username;
-            return $http.get(url);
+        function findUserByUsername(username) {
+            var result = [];
+            var user;
+            for(var u in users){
+                user = users[u];
+                if(user.username === username){
+                    result.push(user);
+                }
+            }
+            return result;
         }
+
 
         function updateUser(user) {
             var url = "/api/user/" + user._id;
@@ -64,10 +53,12 @@
         }
 
 
+
         function deleteUser(userId) {
             var url = "/api/user/" + userId;
             return $http.delete(url);
         }
+
     }
 })();
 

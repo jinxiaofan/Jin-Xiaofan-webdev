@@ -13,28 +13,30 @@
     </div>
 </nav>
 
-<div class="container">
-    <br>
+
+<div class="container FisrtTop">
     <form>
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="Name" class = widgetText>Name</label>
             <input ng-model = "model.widget.name"
-                   type="text" class="form-control" id="name" placeholder="">
+                   type="text" class="form-control" id="Name" placeholder="Name">
         </div>
+
         <div class="form-group">
-            <label for="title">Text</label>
+            <label for="Text" class = widgetText>Text</label>
             <input ng-model = "model.widget.text"
-                   type="text" class="form-control" id="title" placeholder="US Senate Reaches Compromise on Emergence">
+                   type="number" class="form-control" id="Text">
         </div>
-        <div class="form-group">
-            <label for="size">Size</label>
-            <input ng-model = "model.widget.size"
-                   type="text" class="form-control" id="size" placeholder="3">
-        </div>
-        <a class="btn btn-danger  btn-block"
-           ng-click = "model.deleteWidget()">Delete</a>
+
     </form>
+
+
+    <a ng-click = "model.deleteWidget()"
+       class="btn btn-danger btn-block">Delete</a>
+
 </div>
+
+
 
 <nav class="navbar navbar-fixed-bottom bg-primary">
     <div class="container-fluid">

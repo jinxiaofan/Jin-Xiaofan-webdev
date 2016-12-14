@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-9 col-md-9 navbar-collapsed">
                 <a class="navbar-brand pull-left white">New Websites</a>
-                <a class="navbar-brand pull-right white" ng-click ="model.createWebsite(name, description)">
+                <a class="navbar-brand pull-right white" ng-click ="model.createWebsite(newWebSite)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -43,7 +43,7 @@
 
         <div class="col-sm-9 col-md-9">
             <label for="name">Name</label>
-            <input ng-model="name"
+            <input ng-model="newWebSite.name"
                    type="text"
                    class="form-control"
                    id="name"
@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea
-                        ng-model="description"
+                        ng-model="newWebSite.description"
                         class="form-control" rows="5" id="description" placeholder="Description"></textarea>
             </div>
         </div>

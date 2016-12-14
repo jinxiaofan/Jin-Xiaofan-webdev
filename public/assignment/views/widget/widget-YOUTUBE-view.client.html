@@ -1,15 +1,14 @@
-<nav class="navbar navbar-fixed-top navbar-default">
+<nav class="navbar navbar-fixed-top navbar-light bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand pull-left"
-           href="#/user/{{model.uid}}/website/{{model.wid}}/page">
+        <a class="navbar-brand pull-left white"
+           href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-        <a class="navbar-brand col-m-6 pull-right"
-           href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new">
-            <span class=" glyphicon glyphicon-plus"></span>
-            <div class="navbar-header">
-                <a class="navbar-brand white" href="#">Widgets</a>
-            </div>
+
+        <a class="navbar-brand white pull-left white" href="#">Edit Widget</a>
+        <a class="navbar-brand pull-right white"
+           ng-click="model.updateWidget()">
+            <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
 </nav>
